@@ -1,0 +1,13 @@
+To setup PraxisMapper for your game:
+	
+	* Coppy the PraxisMapper folder from this project into your game
+	* Drop the android folder int your game as well.
+	* Add an Autoload to your game for PraxisMapper/Scripts/PraxisMapper.gd, and name it PraxisCore
+	* Add an Android export target, and set some stuff in it
+	* * At the least, it's enable Gradle build for the plugin
+		and check the boxes for coarse/precise location permissions.
+	* Make sure your game, somewhere, calls OS.request_permissions() to actually start getting GPS info.
+	* * For best behavior. this should be on a screen that tells the user what its for and
+		gives them a button to click to start it.
+	
+...Or use this project as the start of your game, it's got most of that already set up.

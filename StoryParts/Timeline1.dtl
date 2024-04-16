@@ -1,0 +1,3 @@
+[background arg="res://Resources/BGFade.png" fade="0.0"]
+join Boss 1
+Boss: Welcome to Research Fleet! This is a test timeline.

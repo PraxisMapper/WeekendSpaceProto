@@ -1,0 +1,168 @@
+[gd_scene load_steps=2 format=3 uid="uid://cby7r5nm4vsfm"]
+
+[ext_resource type="Theme" uid="uid://qpjfkm1dnyec" path="res://Resources/baseTheme.tres" id="1_spfve"]
+
+[node name="MainHeader" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1080.0
+offset_bottom = 211.0
+color = Color(0.290196, 0.054902, 0.0823529, 1)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Ship: "
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+offset_left = 3.0
+offset_top = 27.0
+offset_right = 43.0
+offset_bottom = 50.0
+text = "Captain:"
+metadata/_edit_use_anchors_ = true
+
+[node name="lblShipName" type="Label" parent="."]
+visible = false
+offset_left = 42.0
+offset_top = 3.0
+offset_right = 82.0
+offset_bottom = 26.0
+text = "USS Placeholder"
+metadata/_edit_use_anchors_ = true
+
+[node name="lblCaptainName" type="Label" parent="."]
+visible = false
+offset_left = 69.0
+offset_top = 28.0
+offset_right = 109.0
+offset_bottom = 51.0
+text = "Sir Placeholder"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label3" type="Label" parent="."]
+visible = false
+offset_left = -1.0
+offset_top = 68.0
+offset_right = 39.0
+offset_bottom = 91.0
+text = "Income:
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="lblIncome" type="Label" parent="."]
+visible = false
+offset_left = 69.0
+offset_top = 69.0
+offset_right = 109.0
+offset_bottom = 92.0
+text = "$0 Energy/sec"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 15.0
+offset_top = 17.0
+offset_right = 174.0
+offset_bottom = 53.0
+theme = ExtResource("1_spfve")
+theme_override_font_sizes/font_size = 26
+text = "Coordinates:"
+
+[node name="lblCoords" type="Label" parent="."]
+offset_left = 195.0
+offset_top = 17.0
+offset_right = 330.0
+offset_bottom = 44.0
+theme = ExtResource("1_spfve")
+theme_override_font_sizes/font_size = 26
+text = "Scanning..."
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 15.0
+offset_top = 78.0
+offset_right = 88.0
+offset_bottom = 114.0
+theme = ExtResource("1_spfve")
+theme_override_font_sizes/font_size = 26
+text = "Place:"
+
+[node name="lblPlace" type="Label" parent="."]
+offset_left = 134.0
+offset_top = 78.0
+offset_right = 1057.0
+offset_bottom = 142.0
+theme = ExtResource("1_spfve")
+theme_override_font_sizes/font_size = 26
+text = "Place-holder"
+autowrap_mode = 3
+
+[node name="pgrCurrentTick" type="ProgressBar" parent="."]
+visible = false
+offset_left = 475.0
+offset_top = 81.0
+offset_right = 807.0
+offset_bottom = 108.0
+max_value = 4.0
+
+[node name="Label6" type="Label" parent="."]
+visible = false
+offset_left = 359.0
+offset_top = 79.0
+offset_right = 466.0
+offset_bottom = 105.0
+text = "Tick Progress:"
+
+[node name="Label7" type="Label" parent="."]
+visible = false
+offset_left = -5.0
+offset_top = 101.0
+offset_right = 35.0
+offset_bottom = 124.0
+text = "Available Energy:"
+
+[node name="lblCurrentEnergy" type="Label" parent="."]
+visible = false
+offset_left = 136.0
+offset_top = 104.0
+offset_right = 176.0
+offset_bottom = 127.0
+text = "$0"
+
+[node name="btnOptions" type="Button" parent="."]
+offset_left = 774.0
+offset_top = 145.0
+offset_right = 1065.0
+offset_bottom = 189.0
+theme = ExtResource("1_spfve")
+theme_override_font_sizes/font_size = 26
+text = "Show Options Window"
+
+[node name="btnHelp" type="Button" parent="."]
+offset_left = 422.0
+offset_top = 11.0
+offset_right = 661.0
+offset_bottom = 55.0
+theme = ExtResource("1_spfve")
+theme_override_font_sizes/font_size = 26
+text = "Help"
+
+[node name="btnScanExplorer" type="Button" parent="."]
+offset_left = 829.0
+offset_top = 12.0
+offset_right = 1068.0
+offset_bottom = 56.0
+theme = ExtResource("1_spfve")
+theme_override_font_sizes/font_size = 26
+text = "Show Scan Explorer"
+
+[node name="btnViewMap" type="Button" parent="."]
+offset_left = 15.0
+offset_top = 145.0
+offset_right = 209.0
+offset_bottom = 189.0
+theme = ExtResource("1_spfve")
+theme_override_font_sizes/font_size = 26
+text = "View Area Map"

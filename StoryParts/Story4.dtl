@@ -1,0 +1,6 @@
+[background arg="res://Resources/BGFade.png" fade="0.0"]
+join Boss 1
+Boss: Alright, Your first exploration excursion was executed efficiently. Excellent.
+Boss: Now that you've found this new location, we need to do some additional security patrolling. Yes, it's routine work, but it's important.
+Boss: If you were able to do some additional walking during your previous order, you've saved yourself a little time. If not, no big deal. We're not putting a time limit on you for this.
+Boss: This time, we need you to have covered 375 sectors and confirmed they're safe or empty. It's a jump from last time, but it's not at all out of reach for you. Check back in with us when you've hit the magic number.

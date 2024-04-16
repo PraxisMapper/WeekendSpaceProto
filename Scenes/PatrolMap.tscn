@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv6not5nijbvw"]
+
+[ext_resource type="Script" path="res://Scenes/PatrolMap.gd" id="1_g4y5y"]
+[ext_resource type="PackedScene" uid="uid://d2s7liaelt3lv" path="res://Components/CellTrackerDrawer.tscn" id="2_bayvt"]
+
+[node name="PatrolMap" type="Node2D"]
+script = ExtResource("1_g4y5y")
+
+[node name="CellTrackerDrawer" parent="." instance=ExtResource("2_bayvt")]
+scale = Vector2(10, 10)
+
+[node name="CellTrackerDrawer2" parent="." instance=ExtResource("2_bayvt")]
+position = Vector2(200, 0)
+scale = Vector2(10, 10)
+
+[node name="CellTrackerDrawer3" parent="." instance=ExtResource("2_bayvt")]
+position = Vector2(400, 0)
+scale = Vector2(10, 10)
+
+[node name="CellTrackerDrawer4" parent="." instance=ExtResource("2_bayvt")]
+position = Vector2(0, 200)
+scale = Vector2(10, 10)
+
+[node name="CellTrackerDrawer5" parent="." instance=ExtResource("2_bayvt")]
+position = Vector2(200, 200)
+scale = Vector2(10, 10)
+
+[node name="CellTrackerDrawer6" parent="." instance=ExtResource("2_bayvt")]
+position = Vector2(400, 200)
+scale = Vector2(10, 10)
+
+[node name="CellTrackerDrawer7" parent="." instance=ExtResource("2_bayvt")]
+position = Vector2(0, 400)
+scale = Vector2(10, 10)
+
+[node name="CellTrackerDrawer8" parent="." instance=ExtResource("2_bayvt")]
+position = Vector2(200, 400)
+scale = Vector2(10, 10)
+
+[node name="CellTrackerDrawer9" parent="." instance=ExtResource("2_bayvt")]
+position = Vector2(400, 400)
+scale = Vector2(10, 10)

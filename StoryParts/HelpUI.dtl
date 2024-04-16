@@ -1,0 +1,14 @@
+[background arg="res://Resources/BGHelpUI1.png" fade="0.0"]
+This is the main header. You can see your current location's PlusCode here, and the name of the known place if you're at one. The spaceship indicates which direction you're facing on the compass with the red arrow.
+View Area Map will show you a map of your current 6-digit PlusCode, a color key for places in it, and the size of the map in kilometers and miles.
+Show Scan Explorer will let you scan your area for places around you (or at a specific distance), and optionally of a particular type you want to find. If you want see what the game knows about, or choose your own activity to go to, check this out.
+Show Options Window brings up a window with a few check boxes. You can tell the game to stop suggesting particular types of areas, or turn on battery saver mode.
+[background arg="res://Resources/BGHelpUI2.png" fade="0.0"]
+The Orders panel shows your current in-game objective. If your objective is a place, it also shows that place's center coordinate PlusCode and how far away it is, and 3 buttons for helping you out with any problem places in the prototype.
+Pushing "Never Show This Place Again" will put the current place on a permanent ignore list, and it will not appear again in any scan.
+Pick New Place will randomly choose a different place as your objective, using the same requirements for this order. If the mission is a library, it will only pick libraries.
+Place Nearby or Not Giving Credit is the "cheat" button for when you can't physically get close enough to your destination, or if it's completely covered up by other nearby places as well. This checks that you're within 5 sectors of the target's center, and if so it gives you credit for standing on it. You normally need to be within 2 sector of the center for the smallest places on the map.
+[background arg="res://Resources/BGHelpUI3.png" fade="0.0"]
+The Patrol Log shows you all of the sectors you have walked through in the current 8-digit PlusCode and its neighbors, along with your current total count. It doesn't have any other map or navigation info in it. \
+\
+Your current position is indicated by the blinking red and green square. Sectors you have walked through are white, and grey areas are unexplored.

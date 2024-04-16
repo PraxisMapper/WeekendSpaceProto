@@ -1,0 +1,11 @@
+[background arg="res://Resources/BGFade.png" fade="0.0"]
+join Boss 1
+Boss: Congratulations, Captain {captainName}!
+Boss: You've reached the end of the prototype.  I hope you enjoyed testing out "Weekend Space Command".
+Boss: You got out and walked 3 miles or more, visited four places with us (and hopefully at least one of them was new to you), and made it here to the final scene.
+if {totalSectorCount100} >= 25:
+	# If the player walked through 2,500+ sectors (20+ miles) when the game only needs 375 (3 miles), ask about it
+	Boss: You DID walk all that distance, of course? You wouldn't leave your game open while driving to claim credit for {totalSectorCountStr} sectors when you only needed to walk around a few blocks, would you?
+	Boss: Of course you didn't. This isn't a competition. The only person being cheated would be yourself in that case. And you are a Research Fleet Captain. You have more than enough self-respect and integrity than to take a shortcut on self-improvement for a badge and a pat on the back.
+Boss: There's no more scripted story to follow, but you can keep using the game to get suggestions for places to visit on your own. You'll only get suggestions for places you haven't been before with the game running, so your Research Fleet career as an explorer won't have you looping around the same places endlessly.
+Boss: I hope you've enjoyed this experience, and acquired an idea of what locative games could be. If you have any feedback, please email praxismapper@gmail.com or post on the game at itch.io - There's no data collection of any kind going on in the app, and I will never know anything about your adventure if you don't share them with me.

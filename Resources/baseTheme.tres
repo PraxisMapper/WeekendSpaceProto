@@ -1,0 +1,23 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://qpjfkm1dnyec"]
+
+[ext_resource type="FontFile" uid="uid://sshygo2eogvb" path="res://Resources/Titillium-Semibold.otf" id="1_0y2no"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4mgh7"]
+bg_color = Color(0.847059, 0, 0.152941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t52v3"]
+bg_color = Color(0, 0.545098, 0.2, 1)
+
+[resource]
+default_font_size = 26
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/fonts/font = ExtResource("1_0y2no")
+CheckBox/styles/normal = SubResource("StyleBoxFlat_4mgh7")
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_t52v3")
+Label/fonts/font = ExtResource("1_0y2no")
+OptionButton/constants/arrow_margin = 4
+OptionButton/constants/h_separation = 4
+OptionButton/constants/modulate_arrow = 0
+OptionButton/fonts/font = ExtResource("1_0y2no")

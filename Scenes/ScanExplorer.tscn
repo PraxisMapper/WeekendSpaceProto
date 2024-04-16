@@ -1,0 +1,217 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4brkr6jo52jt"]
+
+[ext_resource type="Script" path="res://Scenes/ScanExplorer.gd" id="1_asqof"]
+[ext_resource type="Theme" uid="uid://qpjfkm1dnyec" path="res://Resources/baseTheme.tres" id="2_dytlm"]
+[ext_resource type="Script" path="res://Scripts/AreaScanner.gd" id="3_a2agn"]
+
+[node name="ScanExplorer" type="Node2D"]
+script = ExtResource("1_asqof")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1080.0
+offset_bottom = 1920.0
+color = Color(0.0196078, 0.0745098, 0.00392157, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 450.0
+offset_top = 5.0
+offset_right = 600.0
+offset_bottom = 32.0
+theme = ExtResource("2_dytlm")
+text = "Scan Explorer"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 441.0
+offset_top = 46.0
+offset_right = 594.0
+offset_bottom = 81.0
+theme = ExtResource("2_dytlm")
+text = "Get Area Info"
+
+[node name="lblCounts" type="Label" parent="."]
+offset_left = 670.0
+offset_top = 269.0
+offset_right = 818.0
+offset_bottom = 296.0
+theme = ExtResource("2_dytlm")
+text = "Place Counts:
+"
+
+[node name="AreaScanner" type="Node2D" parent="."]
+script = ExtResource("3_a2agn")
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 998.0
+offset_top = 11.0
+offset_right = 1066.0
+offset_bottom = 46.0
+theme = ExtResource("2_dytlm")
+text = "Close"
+
+[node name="SC" type="ScrollContainer" parent="."]
+offset_left = 11.0
+offset_top = 267.0
+offset_right = 629.0
+offset_bottom = 1676.0
+
+[node name="VBOX" type="VBoxContainer" parent="SC"]
+custom_minimum_size = Vector2(500, 1000)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="lblResults" type="RichTextLabel" parent="SC/VBOX"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("2_dytlm")
+bbcode_enabled = true
+text = "Results:"
+fit_content = true
+
+[node name="chkFar" type="CheckBox" parent="."]
+offset_left = 282.0
+offset_top = 114.0
+offset_right = 490.0
+offset_bottom = 149.0
+theme = ExtResource("2_dytlm")
+text = "Far-scan (3+ distance until item found)
+"
+
+[node name="chkVisited" type="CheckBox" parent="."]
+offset_left = 783.0
+offset_top = 112.0
+offset_right = 991.0
+offset_bottom = 147.0
+theme = ExtResource("2_dytlm")
+text = "Include Visited"
+
+[node name="chkSub" type="CheckBox" parent="."]
+offset_left = 18.0
+offset_top = 116.0
+offset_right = 226.0
+offset_bottom = 151.0
+theme = ExtResource("2_dytlm")
+text = "Only Sub-places"
+
+[node name="optTypes" type="OptionButton" parent="."]
+offset_left = 184.0
+offset_top = 195.0
+offset_right = 435.0
+offset_bottom = 230.0
+theme = ExtResource("2_dytlm")
+item_count = 25
+selected = 0
+popup/item_0/text = "Any"
+popup/item_0/id = 0
+popup/item_1/text = "Park"
+popup/item_1/id = 1
+popup/item_2/text = "University"
+popup/item_2/id = 2
+popup/item_3/text = "Nature Reserve"
+popup/item_3/id = 3
+popup/item_4/text = "Cemetery"
+popup/item_4/id = 4
+popup/item_5/text = "Historical"
+popup/item_5/id = 5
+popup/item_6/text = "Theatre"
+popup/item_6/id = 6
+popup/item_7/text = "Concert Hall"
+popup/item_7/id = 7
+popup/item_8/text = "Arts Centre"
+popup/item_8/id = 8
+popup/item_9/text = "Planetarium"
+popup/item_9/id = 9
+popup/item_10/text = "Library"
+popup/item_10/id = 11
+popup/item_11/text = "Public Bookcase"
+popup/item_11/id = 12
+popup/item_12/text = "Community Center"
+popup/item_12/id = 13
+popup/item_13/text = "Conference Center"
+popup/item_13/id = 14
+popup/item_14/text = "Exhibition Center"
+popup/item_14/id = 14
+popup/item_15/text = "Events Venue"
+popup/item_15/id = 16
+popup/item_16/text = "Aquarium"
+popup/item_16/id = 17
+popup/item_17/text = "Artwork"
+popup/item_17/id = 18
+popup/item_18/text = "Attraction"
+popup/item_18/id = 19
+popup/item_19/text = "Gallery"
+popup/item_19/id = 20
+popup/item_20/text = "Museum"
+popup/item_20/id = 21
+popup/item_21/text = "Theme Park"
+popup/item_21/id = 22
+popup/item_22/text = "Viewpoint"
+popup/item_22/id = 23
+popup/item_23/text = "Zoo"
+popup/item_23/id = 24
+popup/item_24/text = "Named Trail"
+popup/item_24/id = 25
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 565.0
+offset_top = 197.0
+offset_right = 677.0
+offset_bottom = 224.0
+theme = ExtResource("2_dytlm")
+text = "Specific Distance:"
+
+[node name="optDist" type="OptionButton" parent="."]
+offset_left = 772.0
+offset_top = 191.0
+offset_right = 1023.0
+offset_bottom = 226.0
+theme = ExtResource("2_dytlm")
+item_count = 10
+selected = 0
+fit_to_longest_item = false
+popup/item_0/text = "0-1 or closest"
+popup/item_0/id = 0
+popup/item_1/text = "2"
+popup/item_1/id = 2
+popup/item_2/text = "3"
+popup/item_2/id = 3
+popup/item_3/text = "4"
+popup/item_3/id = 4
+popup/item_4/text = "5"
+popup/item_4/id = 5
+popup/item_5/text = "6"
+popup/item_5/id = 6
+popup/item_6/text = "7"
+popup/item_6/id = 7
+popup/item_7/text = "8"
+popup/item_7/id = 8
+popup/item_8/text = "9"
+popup/item_8/id = 10
+popup/item_9/text = "10"
+popup/item_9/id = 10
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 53.0
+offset_top = 198.0
+offset_right = 165.0
+offset_bottom = 225.0
+theme = ExtResource("2_dytlm")
+text = "Find Type:"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 27.0
+offset_top = 52.0
+offset_right = 139.0
+offset_bottom = 79.0
+theme = ExtResource("2_dytlm")
+text = "Scanning: "
+
+[node name="lblArea" type="Label" parent="."]
+offset_left = 154.0
+offset_top = 52.0
+offset_right = 266.0
+offset_bottom = 79.0
+theme = ExtResource("2_dytlm")
+
+[connection signal="pressed" from="Button" to="." method="GetAreaInfo"]
+[connection signal="pressed" from="Button2" to="." method="Close"]

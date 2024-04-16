@@ -1,0 +1,109 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp8robaec46an"]
+
+[ext_resource type="Script" path="res://Scenes/SetupScene.gd" id="1_uy5ts"]
+[ext_resource type="Theme" uid="uid://qpjfkm1dnyec" path="res://Resources/baseTheme.tres" id="2_qi88h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t71jf"]
+bg_color = Color(0.231373, 0.309804, 0.803922, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ii71o"]
+content_margin_left = 7.0
+content_margin_top = 2.0
+content_margin_right = 7.0
+content_margin_bottom = 1.0
+bg_color = Color(0.74902, 0.32549, 0.0117647, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="SetupScene" type="Node2D"]
+script = ExtResource("1_uy5ts")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1080.0
+offset_bottom = 1920.0
+color = Color(0.0784314, 0, 0.156863, 1)
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 9.0
+offset_top = 237.0
+offset_right = 1089.0
+offset_bottom = 324.0
+theme = ExtResource("2_qi88h")
+theme_override_font_sizes/font_size = 36
+text = "This is a location-based game. You will play by walking around outside and visiting new places.
+
+This will require you to grant location permissions to the app from your phone. No data leaves your phone from this game at any time.
+
+Once you grant GPS permissions, the \"Start Game\" button will appear at the bottom of the screen. Push that to begin playing!"
+autowrap_mode = 3
+
+[node name="btnGrant" type="Button" parent="."]
+offset_left = 246.0
+offset_top = 669.0
+offset_right = 457.0
+offset_bottom = 704.0
+scale = Vector2(3, 3)
+theme = ExtResource("2_qi88h")
+theme_override_styles/normal = SubResource("StyleBoxFlat_t71jf")
+text = "Grant Permissions"
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 37.0
+offset_top = 949.0
+offset_right = 1073.0
+offset_bottom = 1063.0
+theme = ExtResource("2_qi88h")
+theme_override_font_sizes/font_size = 36
+text = "If no box appears when pushing \"Grant Permissions\", you may need to go into Settings/Apps and grant this game permissions directly."
+autowrap_mode = 3
+
+[node name="lblGranted" type="Label" parent="."]
+visible = false
+offset_left = 219.0
+offset_top = 825.0
+offset_right = 448.0
+offset_bottom = 852.0
+scale = Vector2(3, 3)
+theme = ExtResource("2_qi88h")
+text = "Permissions Granted"
+
+[node name="btnStart" type="Button" parent="."]
+visible = false
+offset_left = 367.0
+offset_top = 1699.0
+offset_right = 491.0
+offset_bottom = 1730.0
+scale = Vector2(3, 3)
+theme = ExtResource("2_qi88h")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ii71o")
+text = "Start Game"
+
+[node name="Label" type="Label" parent="."]
+offset_right = 359.0
+offset_bottom = 57.0
+scale = Vector2(3, 3)
+theme = ExtResource("2_qi88h")
+text = "Welcome to the Weekend Space Command Prototype!"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="lblRights" type="RichTextLabel" parent="."]
+offset_left = 9.0
+offset_top = 1109.0
+offset_right = 1089.0
+offset_bottom = 1476.0
+theme = ExtResource("2_qi88h")
+bbcode_enabled = true
+text = "Weekend Space Command (Prototype) contains information from [url=https://www.openstreetmap.org/]OpenStreetMap[/url],  which is made available here under the [url=https://opendatacommons.org/licenses/odbl/1-0/]Open Database License (ODbL)[/url].
+
+This data can be extracted from the game's .apk file for use in your own games, subject to the ODbL terms. To get the game's map data, rename the .apk to .zip, and copy the files out of the \"assets\\OfflineData\" subfolder. You can also use [url=https://github.com/PraxisMapper]PraxisMapper[/url] to generate your own set of data from OSM source data."
+
+[connection signal="pressed" from="btnGrant" to="." method="GrantPermission"]
+[connection signal="pressed" from="btnStart" to="." method="StartGame"]
+[connection signal="meta_clicked" from="lblRights" to="." method="link_clicked"]

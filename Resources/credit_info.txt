@@ -1,0 +1,7 @@
+Kenney.nl: icon, PraxisMapper resources
+
+Map data from OpenStreetMap, available under the ODbL (openstreetmap.org/copyright)
+
+Titillium font available via SIL Open Font License.
+
+Dialogic 2 plugin used via MIT license, copyright 2020-2023 Emilio Coppola 

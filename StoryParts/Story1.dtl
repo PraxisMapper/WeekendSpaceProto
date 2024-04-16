@@ -1,0 +1,8 @@
+[background arg="res://Resources/BGFade.png" fade="0.0"]
+join Boss 1
+Boss: Congratulations on your promotion, Captain! We've assigned you to a small ship, the PraxisMapper, to start your new career off on the right foot.
+Boss: Your first mission is simple, to help you get used to your ship and crew. You will need to patrol 125 unique sectors. Yes, you are a captain in Research Fleet, and any serious security operations are handled by Defense Control. But we do have to ensure the surrounding area is safe. This should be no big deal. Get out of the house and walk around for a bit.
+Boss: In Research Fleet, we use Open Location Codes, usually shortened to PlusCodes, to indicate positions. Each sector has a 10-character PlusCode assigned to it according to its position on the grid, and each 2 character pair indicates a smaller area inside the previous area.
+Boss: For example, on Earth, 85 covers everything from San Diego, California to Bismark, North Dakota. 85V4 would indicate Spokane, Washington and its surrounding area. 85V4MQ would narrow that down to the suburb of Spokane Valley. 85V4MQFV is the center of the Spokane Valley Mall, and 85V4MQFV+8J would mark the entrance of the local tattoo parlor inside the mall.
+Boss: That last level, with the + near the end, is what we call a sector in Research Fleet. It's about 14 meters (or 46 feet) square. If the weather's nice and you have space to walk safely, this could be a 15 minute job.
+Boss: When you're done with that, push the "Complete Misson" button on the Bridge panel, and we'll dig into your first real assignment.

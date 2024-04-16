@@ -1,0 +1,10 @@
+[background arg="res://Resources/HelpPlusCode.png" fade="0.0"]
+PlusCodes are a way to identify areas on a layerd grid-based system. The idea was to make a code that could be used to identify places without an address that a human could use without a computer's help
+Each level of the grid is a 20x20 cell, with rows and columns identified by the numbers 2-9 and letters C-X. The missing numbers and letters were chosen to make sure codes couldn't spell actual words. In each pair of characters, the first one is the Y axis, and the second is X axis. 22 is in the southwest corner, X2 is northwest, XX is northeast, and 2X is southeast.
+Here we'll zoom in to a Las Vegas, NV, USA area. We start at 85, which covers a huge 20x20 degree area on the map. It includes some of the Pacific Ocean south of Los Angeles, CA and spreads up past the Canadian border towards Winnipeg.
+Stepping down another level, we see 8586. We just added the coordinates for this cell to the previous one, and now this square covers one degree on the map. That puts Las Vegas in the southeast corner, but still stretches about 65 miles north and west of it. 
+Going deeper, we see 85865V. This is about 10 square miles, though exactly how big the area covered is depends on the latitude. This covers the actual city area you tend to think of when you hear "Las Vegas", but there are 2 more useful levels. 
+The last image here is 85865VCF. Using 4 pairs of characters brings us down to a couple city blocks in area. This is a randomly selected, nondescript residental area. If we were to go down one more level, we'd use the + to indicate it for readability, and could pick out individual houses with that grid.
+PraxisMapper-based games (like this prototype) will use the left side of the code as far as it needs to and stop early. The area map covers 6 characters, or about 10 square miles. The center of known places will show all 10 characters. \
+\
+Google Maps will often shorten codes by ignoring the left side, leaving the more precise data and making a reference to the general area like "2345+67, Las Vegas NV".

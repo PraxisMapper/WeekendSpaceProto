@@ -1,0 +1,10 @@
+[background arg="res://Resources/BGFade.png" fade="0.0"]
+join Boss 1
+Boss: Finished up the first day paperwork? Fantastic. If you did the math, that was about a mile's walk. No sweat, right? Time to get to the actual job.
+Boss: Your first away mission is to go to {missionPlace}. This should be nearby. Scanners indicate it's centered around {missionPlusCode}
+Boss: You might have realized that you can, for the most part, ignore the half of the PlusCode that isn't relevant for your scope of travel. Here, the first 6 characters are probably identical, so you can focus on the last 4 to figure out how far away or in what direction your destination is in.
+Boss: The first letter of a character pair indicate the latitude, or Y axis, position, and the second indicates the longitude, or X axis. \
+There's 20 letters in the PlusCode alphabet, starting with numbers 2 through 9, and then a selection of English letters from C to X. \
+The 'smallest' pair, 22, means the southwest corner of that particular grid space, and the 'largest', XX, is the northeast corner. X2 would be the northwest corner. FF is the middle of a grid.
+Boss: It's not always easy at first, but with a little practice you can start getting quick estimates of distance and direction in your head by comparing your destination and current PlusCode.
+Boss: Scout out your destination, and report back once you've arrived there, Captain.

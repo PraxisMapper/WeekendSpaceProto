@@ -1,0 +1,10 @@
+[background arg="res://Resources/BGFade.png" fade="0.0"]
+What would you like to know about?
+- What are these location codes?
+	jump HelpPlusCodes/
+- What do these buttons do?
+	jump HelpUI/
+- What am I supposed to do?
+	jump HelpGeneral/
+- Close the help menu
+	[end_timeline]

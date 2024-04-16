@@ -1,0 +1,7 @@
+[background arg="res://Resources/BGFade.png" fade="0.0"]
+join Boss 1
+Boss: Good to hear from you, Captain {captainName}. Great work reaching the destination.
+Boss: Excellent news on your next set of orders\: we're delegating the security patrol to a new captain. They'll arrive shortly to handle the routine sweep of the area.
+Boss: That means we can keep you on exploration duty, where you belong. Your next destination is {missionPlace}. If that doesn't sound familiar, we understand. This is significantly farther away than you normally get sent. You probably won't be able to walk or bike here. That's intentional.
+Boss: Central Command strongly recommends that when you travel this far from your usual station, to "make an afternoon out of it". Don't just go there to tag the destination and return. Stay a while, do some exploring, check out the local culture or scenery.
+Boss: You have a job as a Captain in Research Fleet, but you have other duties outside your career. Take care of yourself and enjoy the journey. Report in when you arrive at {missionPlace}.
