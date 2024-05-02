@@ -31,7 +31,6 @@ class AndroidExportPlugin extends EditorExportPlugin:
 			return PackedStringArray([_plugin_name + "/" + _plugin_name + "-release.aar"])
 
 	func _get_android_dependencies(platform, debug):
-		# TODO: Add remote dependices here.
 		if debug:
 			return PackedStringArray([])
 		else:

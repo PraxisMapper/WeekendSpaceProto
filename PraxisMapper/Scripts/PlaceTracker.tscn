@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://8cjjtj88jnmt"]
+[gd_scene load_steps=2 format=3 uid="uid://dgnoeyus8vqce"]
 
 [ext_resource type="Script" path="res://PraxisMapper/Scripts/PlaceTracker.gd" id="1_5vump"]
 

@@ -4,7 +4,7 @@ extends Node2D
 #been or not been before.
 
 func Draw(_current, _new):
-	var center = PraxisMapper.currentPlusCode.substr(0,8)
+	var center = PraxisCore.currentPlusCode.substr(0,8)
 	$CellTrackerDrawer.DrawCellTracker(GameGlobals.cellTracker, PlusCodes.ShiftCode(center, -1, 1))
 	$CellTrackerDrawer2.DrawCellTracker(GameGlobals.cellTracker, PlusCodes.ShiftCode(center, 0, 1))
 	$CellTrackerDrawer3.DrawCellTracker(GameGlobals.cellTracker, PlusCodes.ShiftCode(center, 1, 1))

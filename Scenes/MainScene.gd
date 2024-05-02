@@ -4,7 +4,7 @@ signal pluscode_changed(current, old)
 signal place_changed(newPlaceName)
 
 func _process(delta):
-	var heading = PraxisMapper.GetCompassHeading()
+	var heading = PraxisCore.GetCompassHeading()
 	$compassTexture.rotation = heading
 	$lblHeading.text = "Heading: " + str(snapped(rad_to_deg(heading), 0))
 
@@ -27,7 +27,7 @@ func on_pluscode_changed(currentPlusCode, previousPlusCode):
 	$scroll/vbox/MainHeader/lblCoords.text = currentPlusCode
 	var fileExists = FileAccess.file_exists("user://NameTiles/" + currentPlusCode.substr(0,6) + ".png")
 	if (fileExists == false):
-		await $MinOfflineData.GetAndProcessData(currentPlusCode.substr(0,6), "suggestedmini")
+		await $MinOfflineData.GetAndProcessData(currentPlusCode.substr(0,6))
 		
 	var currentPlace = GameGlobals.currentPlaceName
 	var placeData = $PlaceTracker.CheckForPlace(currentPlusCode)

@@ -17,14 +17,14 @@ func DrawOfflineTerrainTile(entries, scale):
 func _draw():
 	if theseentries == null:
 		return
-	
+
 	var scale = thisscale
-	var width = 80 * 20 * 16 #= 25600
-	var height = 100  * 20 * 20 #= 40000
+	var width = 20 * 20
+	var height = 20 * 20
 	#REMEMBER: PlusCode origin is at the BOTTOM-left, these draw calls use the TOP left.
 	#This should do the same invert drawing that PraxisMapper does server-side.
 	draw_set_transform(Vector2(0,0), 0, Vector2(1,-1))
-
+	
 	var bgCoords = PackedVector2Array()
 	bgCoords.append(Vector2(0,0))
 	bgCoords.append(Vector2(width * scale,0))
@@ -32,7 +32,7 @@ func _draw():
 	bgCoords.append(Vector2(0,height * scale))
 	bgCoords.append(Vector2(0,0))
 	draw_colored_polygon(bgCoords, Color.BLACK) 
-	
+
 	for entry in theseentries:
 		var r = (int(entry.tid) % 256) / 256.0
 		var g = (int(entry.tid / 256) % 256) / 256.0
@@ -41,17 +41,6 @@ func _draw():
 		var lineSize = 1.0 * scale
 		var thisStyle = style[str(entry.tid)]
 		
-		var coords = entry.p.split("|", false)
-		var polyCoords = PackedVector2Array()
-		for i in coords.size():
-			var point = coords[i].split(",")
-			var workVector = Vector2(int(point[0]) * scale, int(point[1]) * scale)
-			polyCoords.append(workVector)
-		
-		for s in thisStyle.drawOps:
-			if (entry.gt == 1):
-				draw_circle(polyCoords[0], s.sizePx * 2.0 * scale * 5, terrainColor)
-			elif (entry.gt == 2):
-				draw_polyline(polyCoords, terrainColor, s.sizePx * scale * 5)
-			elif entry.gt == 3:
-				draw_colored_polygon(polyCoords, terrainColor) 
+		var point = entry.c.split(",")
+		var center = Vector2(int(point[0]) * scale, int(point[1]) * scale)
+		draw_circle(center, entry.r, terrainColor)

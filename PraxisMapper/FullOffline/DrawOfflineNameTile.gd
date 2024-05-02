@@ -19,8 +19,8 @@ func _draw():
 		return
 	
 	var scale = thisscale
-	var width = 80 * 20 * 16 #= 25600
-	var height = 100  * 20 * 20 #= 40000
+	var width = 320 * 20 # 6400
+	var height = 500 * 20 #= 10000
 	#REMEMBER: PlusCode origin is at the BOTTOM-left, these draw calls use the TOP left.
 	#This should do the same invert drawing that PraxisMapper does server-side.
 	draw_set_transform(Vector2(0,0), 0, Vector2(1,-1))
@@ -43,21 +43,14 @@ func _draw():
 			var nameColor = Color(r, g, b)
 			var lineSize = 1.0 * scale
 		
-			var coords = entry.p.split("|", false)
-			var polyCoords = PackedVector2Array()
-			for i in coords.size():
-				var point = coords[i].split(",")
-				var workVector = Vector2(int(point[0]) * scale, int(point[1]) * scale)
-				polyCoords.append(workVector)
-		
 			for s in thisStyle.drawOps:
 				if (entry.gt == 1):
 					#this is just a circle for single points, size is in Cell10s
 					#(The * 5 means we're drawing pixels as Cell-11s on the image)
 					#4.5 looks good for POIs, but bad for Trees, which there are quite a few of.
 					#trees are size 0.2, so I should probably make other elements larger?
-					draw_circle(polyCoords[0], s.sizePx * 2.0 * scale * 5, nameColor)
+					await draw_circle(entry.p[0], s.sizePx * 10.0 * scale, nameColor)
 				elif (entry.gt == 2):
-					draw_polyline(polyCoords, nameColor, s.sizePx * scale * 5) #no antialiasing, colors matter.
+					await draw_polyline(entry.p, nameColor, s.sizePx * scale) #no antialiasing, colors matter.
 				elif entry.gt == 3:
-					draw_colored_polygon(polyCoords, nameColor) 
+					await draw_colored_polygon(entry.p, nameColor) 

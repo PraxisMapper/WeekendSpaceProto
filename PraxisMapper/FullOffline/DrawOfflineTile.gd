@@ -22,16 +22,13 @@ func _draw():
 	if theseentries == null:
 		return
 	
-	#TODO: determine background color for image and fill that first. Depends on style.
-	#for dev testing, this is the default x1 scale for a Cell8 image
 	var scale = thisscale
-	var width = 80 * 20 * 16 #= 25600
-	var height = 100  * 20 * 20 #= 40000
+	var width = 320 * 20 # 6400
+	var height = 500 * 20 #= 10000
 	#REMEMBER: PlusCode origin is at the BOTTOM-left, these draw calls use the TOP left.
 	#This should do the same invert drawing that PraxisMapper does server-side.
 	draw_set_transform(Vector2(0,0), 0, Vector2(1,-1))
-	
-	#TODO jamming in a background drawing bit here
+
 	var bgCoords = PackedVector2Array()
 	bgCoords.append(Vector2(0,0))
 	bgCoords.append(Vector2(width * scale,0))
@@ -39,34 +36,45 @@ func _draw():
 	bgCoords.append(Vector2(0,height * scale))
 	bgCoords.append(Vector2(0,0))
 	draw_colored_polygon(bgCoords, style["9999"].drawOps[0].color) 
-	
-	#entries has a dictionary, each entry is a big list of coord sets as strings
+	var orderedDrawCommands = {}
+
+	#entries has a dictionary, each entry is a big list of coord pairs
 	for entry in theseentries:
-		#TODO get style rule color and size for drawing here
-		#TODO: loop here for each style draw rule entry.
-		
 		var thisStyle = style[str(entry.tid)]
 		var lineSize = 1.0 * scale
-		
-		#entry.p is a string of coords separated by a pipe
-		#EX: 0,0|20,0|20,20|20,0|0,0 is a basic square.
-		var coords = entry.p.split("|", false)
-		var polyCoords = PackedVector2Array()
-		for i in coords.size():
-			var point = coords[i].split(",")
-			var workVector = Vector2(int(point[0]) * scale, int(point[1]) * scale)
-			polyCoords.append(workVector)
+
+		for possibleDraw in style:
+			var pd = style[possibleDraw].drawOps
+			for do in pd:
+				if !orderedDrawCommands.has(do.drawOrder):
+					orderedDrawCommands[do.drawOrder] = []
 		
 		for s in thisStyle.drawOps:
-			if (entry.gt == 1):
+			orderedDrawCommands[s.drawOrder].push_back({gt = entry.gt, p = entry.p, size = s.sizePx, color = s.color})
+		
+	var drawLevels = orderedDrawCommands.keys()
+	drawLevels.sort()
+	drawLevels.reverse()
+	for entries in drawLevels:
+		#These items are sorted server-side when the JSON is created, don't re-order them again.
+		#orderedDrawCommands[entries].sort_custom(func(a,b) : return a.size > b.size)
+
+		for odc in orderedDrawCommands[entries]:
+			var points = odc.p
+			if (scale != 1):
+				points = odc.p.duplicate()
+				for i in points.size():
+					points[i] = points[i] * Vector2(scale, scale)
+			
+			if (odc.gt == 1):
 				#this is just a circle for single points, size is roughly a Cell10
 				#4.5 looks good for POIs, but bad for Trees, which there are quite a few of.
 				#trees are size 0.2, so I should probably make other elements larger?
 				#MOST of them shouldn't be points, but lines shouldn't be a Cell10 wide either.
-				draw_circle(polyCoords[0], s.sizePx * 2.0 * scale * 5, s.color)
-			elif (entry.gt == 2):
+				await draw_circle(points[0], odc.size * 10.0 * scale, odc.color)
+			elif (odc.gt == 2):
 				#This is significantly faster than calling draw_line for each of these.
-				draw_polyline(polyCoords, s.color, s.sizePx * scale * 5, true) #antialias display image only.
-			elif entry.gt == 3:
-				#A single color, which is what I generally use. TODO: decide how the texture2d part should work.
-				draw_colored_polygon(polyCoords, s.color) 
+				await draw_polyline(points, odc.color, odc.size * scale, true) #antialias display image only.
+			elif odc.gt == 3:
+				#A single color, which is what I generally use.
+				await draw_colored_polygon(points, odc.color) 

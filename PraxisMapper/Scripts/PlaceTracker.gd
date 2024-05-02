@@ -7,16 +7,15 @@ var allPlaces = {}
 var fileName = "user://Data/Visited.json"
 var styleData = {}
 var checkedPlusCode = ""
+#These store the image used, so we don't have to load all of these from disk every call
 var currentData
 var currentNameTile
 var currentTerrainTile
 
 signal place_changed(newplace)
 
-#This should keep the current maptiles loaded, and swap those out on change ideally.
-
 func _ready():
-	styleData = PraxisMapper.GetStyle("suggestedmini") 
+	styleData = PraxisCore.GetStyle("suggestedmini") 
 	Load()
 
 func Load():
@@ -80,11 +79,10 @@ func CheckForPlace(plusCode10):
 	#This math here uses my minimized offline format image
 	#400x400, each pixel is a Cell10.
 	plusCode10 = plusCode10.replace("+", "")
-	var filename = PraxisMapper.currentPlusCode.substr(0,6)
+	var filename = PraxisCore.currentPlusCode.substr(0,6)
 	if (filename != checkedPlusCode.substr(0,6)):
 		#load new data. These are drawn by GameGlobals if they're available to draw
-		#TODO: these should be done elsewhere, make sure of that.
-		currentData = GameGlobals.GetDataFromZip(filename)
+		currentData = MinimizedOffline.GetDataFromZip(filename)
 		currentNameTile = Image.load_from_file("user://NameTiles/" + filename + ".png")
 		currentTerrainTile = Image.load_from_file("user://TerrainTiles/" + filename + ".png")
 		checkedPlusCode = filename

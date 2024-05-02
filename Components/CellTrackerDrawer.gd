@@ -26,11 +26,11 @@ func _draw():
 			var xCoord = PlusCodes.GetLetterIndex(key[9])
 			draw_rect(Rect2(xCoord, 19 - yCoord, 1, 1), Color.ANTIQUE_WHITE)
 	
-	if PraxisMapper.currentPlusCode == "":
+	if PraxisCore.currentPlusCode == "":
 		return
 	
-	if (PraxisMapper.currentPlusCode.begins_with(plusCode8)):
-		var code = PraxisMapper.currentPlusCode.replace("+", "")
+	if (PraxisCore.currentPlusCode.begins_with(plusCode8)):
+		var code = PraxisCore.currentPlusCode.replace("+", "")
 		var yCoord = PlusCodes.GetLetterIndex(code[8])
 		var xCoord = PlusCodes.GetLetterIndex(code[9])
 		draw_rect(Rect2(xCoord, 19 - yCoord, 1, 1), colorIndicator)

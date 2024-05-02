@@ -1,4 +1,4 @@
-extends RefCounted
+extends Node
 class_name PlusCodes
 
 var SEPARATOR_ = '+'
@@ -39,18 +39,16 @@ static func EncodeLatLonSize(lat, lon, size):
 		currentLon = floor(currentLon / 20)
 
 	code = code + digit11
+	
 	return code.substr(0, 8) + "+" + code.substr(8, -1)
 	
 static func RemovePlus(code):
 	return code.replace("+", "")
 	
 static func ShiftCode(code, xChange, yChange):
-	#This function is not intended to move a code more than 20 cells in a 
-	#direction to force carry more than 1 carry/borrow digit right now.
+	#This function is not intended to move a code more than 20 cells in a direction to force carry
+	#more than 1 carry/borrow digit right now.
 	#that should be done by supplying the substring to move at that level.
-	if code.length() == 0:
-		return null
-	
 	code = RemovePlus(code)
 	var xVals = []
 	var yVals = []

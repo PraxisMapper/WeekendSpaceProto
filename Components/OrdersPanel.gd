@@ -22,7 +22,7 @@ func UpdateScreen(_cur, _old):
 	var showTargetDest = GameGlobals.gameData.currentOrder.type.begins_with("NewPlace") or GameGlobals.gameData.currentOrder.type.begins_with("WaitPlace")  or GameGlobals.gameData.currentOrder.type.begins_with("FreePlay")
 	$lblOrders.text = GameGlobals.gameData.currentOrder.text
 	$lblTargetSector.text = GameGlobals.gameData.currentOrder.place.area
-	$lblDistance.text = GetDistAndDirection(PraxisMapper.currentPlusCode, GameGlobals.gameData.currentOrder.place.area)
+	$lblDistance.text = GetDistAndDirection(PraxisCore.currentPlusCode, GameGlobals.gameData.currentOrder.place.area)
 	$lblTSHeader.visible = showTargetDest
 	$lblDistHeader.visible = showTargetDest
 	$lblTargetSector.visible = showTargetDest
@@ -42,7 +42,7 @@ func ChangePlace():
 	if (orderParts[0] == "FreePlay" and randi() % 4 == 0):
 		condition = "far"
 	var terrainId = int(condition)
-	var newPlace = $AreaScanner.PickPlace(PraxisMapper.currentPlusCode.substr(0,6), terrainId, condition)
+	var newPlace = $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainId, condition)
 	if newPlace == null:
 		return
 	
@@ -122,7 +122,7 @@ func GetOrder():
 		order.newPlaceVisited = false
 		var terrainType = int(parts[1])
 		
-		var place = $AreaScanner.PickPlace(PraxisMapper.currentPlusCode.substr(0,6), terrainType, parts[1])
+		var place = $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainType, parts[1])
 		if place == null:
 			print("No place found!") #PickPlace shows the error dialog.
 			GameGlobals.gameData.plotProgress -= 1
@@ -229,7 +229,7 @@ func NudgeCheck():
 	#Force the app to check all places and see if we're standing in the one our mission wants.
 	#We do load the data and check always, because it could be just outside the current tile's bounds
 	
-	var dist = GetDist(PraxisMapper.currentPlusCode, GameGlobals.gameData.currentOrder.place.area)
+	var dist = GetDist(PraxisCore.currentPlusCode, GameGlobals.gameData.currentOrder.place.area)
 	if (dist <= (0.000625)): #Treat place as radius=5. This is meant for small places.
 		print("nudged into the area, completeing order.")
 		GameGlobals.gameData.currentOrder.complete = true

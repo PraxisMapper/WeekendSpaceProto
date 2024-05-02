@@ -1,5 +1,9 @@
 extends Node2D
-class_name AreaScannerog
+class_name AreaScanner
+
+#TODO: set styleData from outside or load a default choice Remember this only works on
+#minimized suggestedMini data, so probably force-load that.
+var styleData #loaded from outside
 
 func PickPlace(area, terrainID = 0, requirement = ""):
 	#Find a place in placeData that isn't visited and is allowed by options
@@ -8,26 +12,26 @@ func PickPlace(area, terrainID = 0, requirement = ""):
 	var possiblePlaces = ScanForPlaces(area, terrainID, requirement)
 	if possiblePlaces.size() == 0:
 		print("No allowable places here!")
-		Dialogic.start("Error")
 		return null
 
 	var chosenPlace = possiblePlaces[randi() % possiblePlaces.size()]
 	return chosenPlace
 
-func ReadPlaces(plusCode, terrainID, requirements):
+func ReadPlaces(plusCode, terrainID, requirements, options = null, ignoreList = null, visitedPlaces = null):
 	#The core function for finding places. Scans an area for places that match
 	#the terrainID and requirements values, and returns the list of matches.
 	var possiblePlaces = []
-	var options = GameGlobals.gameOptions
+	if options == null:
+		options = {}
+	if ignoreList == null:
+		ignoreList = {}
 	var areaData = MinimizedOffline.GetDataFromZip(plusCode)
 	var ignoreArray = []
-	if GameGlobals.ignoreList.has(plusCode):
-		ignoreArray = GameGlobals.ignoreList[plusCode]
+	if ignoreList.has(plusCode):
+		ignoreArray = ignoreList[plusCode]
 	if areaData == null:
-		print("No data on this area")
+		#print("No data on this area")
 		return possiblePlaces
-		
-	var visitedPlaces = GameGlobals.placeTracker
 	
 	for place in areaData.entries["suggestedmini"]:
 		if !place.has("nid"): #not picking unnamed places as destinations
@@ -65,7 +69,7 @@ func ReadPlaces(plusCode, terrainID, requirements):
 				if maybeParent.has("nid"):
 					place.parentName = areaData.nameTable[str(maybeParent.nid)]
 				else:
-					place.parentName = "an unnamed " + GameGlobals.styleData[str(maybeParent.tid)].name
+					place.parentName = "an unnamed " + str(maybeParent.tid) # + GameGlobals.styleData[str(maybeParent.tid)].name
 				continue
 		
 		var center = place.c.split(",")
@@ -111,7 +115,8 @@ func ScanForPlaces(plusCode, terrainID = 0, requirements = "", fixedDistance = 0
 			for y in range(-(fixedDistance -1), fixedDistance):
 				scannedAreas.append(PlusCodes.ShiftCode(plusCode, x, y))
 	else: #Scan the current area (Distance 0) before looping on Distance 1+
-		ReadPlaces(plusCode, terrainID, requirements)
+		var placesHere = ReadPlaces(plusCode, terrainID, requirements)
+		possiblePlaces.append_array(placesHere)
 		scannedAreas.append(plusCode)
 
 	while maxDistance >= startDistance and keepGoing == true:
@@ -147,14 +152,8 @@ func IsInside(outerPlace, innerPlace):
 	
 	var outerCoords = outerPlace.c.split(",")
 	var innerCoords = innerPlace.c.split(",")
-	var a_sqared = (int(outerCoords[0]) - int(innerCoords[0])) ** 2
-	var b_sqared = (int(outerCoords[1]) - int(innerCoords[1])) ** 2
-	var c_squared = a_sqared + b_sqared
-	var distance = sqrt(c_squared)
+	var a = Vector2(int(outerCoords[0]), int(outerCoords[1]))
+	var b = Vector2(int(innerCoords[0]), int(innerCoords[1]))
+	var distance = a.distance_to(b)
 	
 	return distance <= outerPlace.r
-
-#Handles the back button to close this window.
-func _notification(what):
-	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
-		queue_free()

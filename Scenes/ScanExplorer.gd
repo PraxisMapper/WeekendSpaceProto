@@ -2,7 +2,7 @@ extends Node2D
 
 func _ready():
 	PraxisCore.plusCode_changed.connect(UpdateDisplay)
-	UpdateDisplay(PraxisMapper.currentPlusCode, "")
+	UpdateDisplay(PraxisCore.currentPlusCode, "")
 
 func UpdateDisplay(cur, _old):
 	$lblArea.text = cur.substr(0,6)
@@ -25,7 +25,7 @@ func GetAreaInfo():
 	var fixedDist = 0
 	if $optDist.selected != 0:
 		fixedDist = $optDist.get_item_id($optDist.selected)
-	var places = $AreaScanner.ScanForPlaces(PraxisMapper.currentPlusCode.substr(0,6), terrainID, requirements, fixedDist)
+	var places = $AreaScanner.ScanForPlaces(PraxisCore.currentPlusCode.substr(0,6), terrainID, requirements, fixedDist)
 	if $chkVisited.button_pressed:
 		GameGlobals.placeTracker.Load()
 

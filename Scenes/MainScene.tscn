@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cby7r5nm4vsfm" path="res://Scenes/MainHeader.tscn" id="1_141gd"]
 [ext_resource type="Script" path="res://Scenes/MainScene.gd" id="1_rpp8k"]
-[ext_resource type="PackedScene" uid="uid://be4dvayan87rs" path="res://PraxisMapper/Controls/MinOfflineData.tscn" id="3_rmlky"]
-[ext_resource type="PackedScene" uid="uid://8cjjtj88jnmt" path="res://PraxisMapper/Scripts/PlaceTracker.tscn" id="4_gae5v"]
+[ext_resource type="PackedScene" uid="uid://dlr56hkndvvt0" path="res://PraxisMapper/MinimizedOffline/MinOfflineTiles.tscn" id="3_c7u4p"]
+[ext_resource type="PackedScene" uid="uid://dgnoeyus8vqce" path="res://PraxisMapper/Scripts/PlaceTracker.tscn" id="4_gae5v"]
 [ext_resource type="PackedScene" uid="uid://mec5wqbebbnw" path="res://Components/OrdersPanel.tscn" id="5_eub6p"]
 [ext_resource type="PackedScene" uid="uid://b1bckdbxcwv0d" path="res://Scenes/SecurityScene.tscn" id="6_u76nx"]
 [ext_resource type="Texture2D" uid="uid://k8ue3jveqnhc" path="res://Resources/titleimage.png" id="8_svb7d"]
@@ -17,7 +17,7 @@ script = ExtResource("1_rpp8k")
 
 [node name="PlaceTracker" parent="." instance=ExtResource("4_gae5v")]
 
-[node name="MinOfflineData" parent="." instance=ExtResource("3_rmlky")]
+[node name="MinOfflineData" parent="." instance=ExtResource("3_c7u4p")]
 
 [node name="scroll" type="ScrollContainer" parent="."]
 offset_right = 1080.0
