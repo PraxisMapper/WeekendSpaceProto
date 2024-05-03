@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmqdi1x0rcuu7"]
+
+[ext_resource type="Script" path="res://Scenes/FixScannerCutscene.gd" id="1_p6sqy"]
+[ext_resource type="PackedScene" uid="uid://ygh6fmdrxjlk" path="res://Components/GetFile.tscn" id="2_ai62d"]
+[ext_resource type="PackedScene" uid="uid://c6ws1w5vlmlu0" path="res://Components/Gauge.tscn" id="3_cvwvw"]
+
+[node name="FixScannerCutscene" type="Node2D"]
+script = ExtResource("1_p6sqy")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MinDataOverlay" type="Node2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="MinDataOverlay"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FullDataOverlay" type="Node2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="FullDataOverlay"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GetFile" parent="." instance=ExtResource("2_ai62d")]
+
+[node name="Gauge" parent="." instance=ExtResource("3_cvwvw")]
+position = Vector2(576, 206)
+
+[node name="Gauge2" parent="." instance=ExtResource("3_cvwvw")]
+position = Vector2(322, 198)
+
+[node name="Gauge3" parent="." instance=ExtResource("3_cvwvw")]
+position = Vector2(85, 193)

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://ygh6fmdrxjlk"]
+
+[ext_resource type="Script" path="res://Components/GetFile.gd" id="1_ocpng"]
+[ext_resource type="Theme" uid="uid://qpjfkm1dnyec" path="res://Resources/baseTheme.tres" id="2_isb0s"]
+
+[node name="GetFile" type="Node2D"]
+script = ExtResource("1_ocpng")
+
+[node name="Banner" type="Node2D" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Banner"]
+offset_right = 994.0
+offset_bottom = 40.0
+color = Color(1, 0.521569, 0.145098, 1)
+
+[node name="Label" type="Label" parent="Banner"]
+offset_left = 380.0
+offset_top = 7.0
+offset_right = 551.0
+offset_bottom = 34.0
+theme = ExtResource("2_isb0s")
+text = "Downloading...."
+
+[node name="client" type="HTTPRequest" parent="."]

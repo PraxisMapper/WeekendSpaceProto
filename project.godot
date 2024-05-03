@@ -35,6 +35,10 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "Error": "res://StoryParts/Error.dtl",
+"FixScanner1": "res://StoryParts/FixScanner1.dtl",
+"FixScanner2": "res://StoryParts/FixScanner2.dtl",
+"FixScanner3": "res://StoryParts/FixScanner3.dtl",
+"FixScanner4": "res://StoryParts/FixScanner4.dtl",
 "HelpGeneral": "res://StoryParts/HelpGeneral.dtl",
 "HelpMenu": "res://StoryParts/HelpMenu.dtl",
 "HelpPlusCodes": "res://StoryParts/HelpPlusCodes.dtl",

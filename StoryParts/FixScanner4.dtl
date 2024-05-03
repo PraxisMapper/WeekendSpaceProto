@@ -1,0 +1,3 @@
+Alright, its time to put all this stuff to use. Lets go fix the detail scanner.
+[end_timeline]
+do GameGlobals.ChangeToFixingScene()

@@ -11,6 +11,21 @@ var isAtHomeBase = false
 var ignoreList = {}
 var styleData = {}
 
+var sideQuests = {
+	FixScanner = {
+		steps = [
+			#After Story 2 is complete, run the FixScanner1 story
+			{requirement = "MainQuest:2", storyName = "FixScanner1"},
+			#On arrival at a library, play FixScanner2
+			{requirement = "place:library", storyName = "FixScanner2"},
+			#on arrival at a graveyard, play FixScanner3
+			{requirement = "place:graveyard", storyName = "FixScanner3"},
+			#Wait 5 minutes at a graveyard, then run the fixing cutscene.
+			{requirement = "wait:graveyard:5", storyName = "FixScanner4"},
+		]
+	}
+}
+
 #GameGlobals will intercept the core signals from PraxisMapper,
 #do all of the required processing in order (Make name/terrain tiles, etc)
 #and then fire off a signal that all of this game's components should listen to instead.
@@ -28,7 +43,7 @@ var gameOptions = {
 
 #NOTE: a lot of these are here from planned full-game ideas, not prototype execution.
 var gameData = {
-	saveDataVersion = 1, #for updating save game format.
+	saveDataVersion = 2, #for updating save game format.
 	skipLanding = false, #Set to true after reading the landing page.
 	batterySaver = false,
 	homeBase = "", #plusCode10, radius ~4?
@@ -51,6 +66,10 @@ var gameData = {
 	baseSalary = 1, #can this be increased separately?
 	awayMissions = [], #require the player to be in the place to end them
 	remoteMissions = [], #these ones dont require you to be in the place to finish
+	sideQuestsInProgress = {}, #TODO: potential nonlinear mission structure.
+	sideQuestsComplete = {}
+	
+	#key is quest name/id, values are progressSteps. 
 }
 
 func _ready():
@@ -183,4 +202,17 @@ func LoadGame():
 		if gameData.batterySaver == true:
 			Engine.max_fps = 30
 		
-		#TODO: check save version and apply fixed by version difference when there are any.
+		#check save version and apply updates by version difference when there are any.
+		if gameData.saveDataVersion <= 1: #Load from Prototype B.
+			gameData.sideQuestProgress = {}
+			gameData.saveDataVersion = 2
+			SaveGame()
+
+func UpdateSideQuests(current):
+	pass
+	#for each active side quest, check what their progress requirement is
+	#and if its complete, fire up the next step of that side quest (dialogic)
+	
+func ChangeToFixingScene():
+	#This is called by Dialogic to move us to the scene for fixing the scanner.
+	get_tree().change_scene_to_file("res://Scenes/FixScannerCutscene.tscn")

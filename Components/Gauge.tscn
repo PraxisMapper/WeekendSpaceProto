@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6ws1w5vlmlu0"]
+
+[ext_resource type="Script" path="res://Components/Gauge.gd" id="1_ux1cl"]
+[ext_resource type="Texture2D" uid="uid://l45u2ucav5iu" path="res://Resources/gauge_bg.png" id="2_h53gx"]
+[ext_resource type="Texture2D" uid="uid://bqwpaybq4vibi" path="res://Resources/gauge_line.png" id="3_qd56s"]
+
+[node name="Gauge" type="Node2D"]
+script = ExtResource("1_ux1cl")
+
+[node name="bg" type="TextureRect" parent="."]
+modulate = Color(0.368627, 1, 0.623529, 1)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_h53gx")
+
+[node name="line" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(120, 120)
+texture = ExtResource("3_qd56s")
