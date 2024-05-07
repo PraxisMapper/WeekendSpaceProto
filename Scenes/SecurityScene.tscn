@@ -8,7 +8,7 @@
 script = ExtResource("1_trdwt")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 1114.0
+offset_right = 1089.0
 offset_bottom = 784.0
 color = Color(0.0666667, 0, 0, 1)
 
@@ -45,3 +45,9 @@ text = "Patrol Map"
 
 [node name="PatrolMap" parent="." instance=ExtResource("1_ywgle")]
 position = Vector2(23, 168)
+
+[node name="cell8Img" type="TextureRect" parent="."]
+offset_left = 720.0
+offset_top = 165.0
+offset_right = 760.0
+offset_bottom = 205.0

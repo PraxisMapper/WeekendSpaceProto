@@ -14,13 +14,14 @@ static func GetDataFromZip(plusCode): #full, drawable offline data.
 	var code4 = plusCode.substr(2, 2)
 	var zipReader = ZIPReader.new()
 	
-	var err = await zipReader.open("res://OfflineData/" + code2 + "/" + code2 + code4 + ".zip")
-	if (err != OK):
-		if FileAccess.file_exists("user://Data/" + code2 + code4 + ".zip"):
-			err = await zipReader.open("user://Data/" + code2 + code4 + ".zip")
-			if err != OK:
-				print("No FullOffline data found built-in or downloaded for " + plusCode)
-				return 
+	#For This app, this will never have these built-in.
+	#var err = await zipReader.open("res://OfflineData/" + code2 + "/" + code2 + code4 + ".zip")
+	#if (err != OK):
+	if FileAccess.file_exists("user://Data/Full/" + code2 + code4 + ".zip"):
+		var err = await zipReader.open("user://Data/Full/" + code2 + code4 + ".zip")
+		if err != OK:
+			print("No FullOffline data found built-in or downloaded for " + plusCode)
+			return 
 		
 	var rawdata := await zipReader.read_file(plusCode + ".json")
 	var realData = await rawdata.get_string_from_utf8()

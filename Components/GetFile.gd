@@ -10,15 +10,13 @@ signal file_downloaded()
 #OK, immediately upon trying to do this, I realize I'm gonna hit issues with files overlapping
 #so I can't do both of these nicely. I'll need to pick a folder or something.
 func getFile(plusCode4):
-	
 	var cell2 = plusCode4.substr(0,2)
-	if FileAccess.file_exists("user://Data/" + cell2 + "/" + plusCode4 + ".zip"):
+	if FileAccess.file_exists("user://Data/Full/" + plusCode4 + ".zip"):
 		file_downloaded.emit()
 		return #already downloaded this! May have a future setup to force this.
 	
 	$client.request_completed.connect(request_complete)
-	DirAccess.make_dir_absolute("user://Data/" + cell2)
-	$client.download_file = "user://Data/" + cell2 + "/" + plusCode4 + ".zip"
+	$client.download_file = "user://Data/Full/" + plusCode4 + ".zip"
 	var status = $client.request(serverPath + cell2 + "/" + plusCode4 + ".zip")
 	if status != Error.OK:
 		#TODO error stuff

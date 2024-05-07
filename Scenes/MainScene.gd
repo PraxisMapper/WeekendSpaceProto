@@ -25,7 +25,7 @@ func _ready():
 
 func on_pluscode_changed(currentPlusCode, previousPlusCode):
 	$scroll/vbox/MainHeader/lblCoords.text = currentPlusCode
-	var fileExists = FileAccess.file_exists("user://NameTiles/" + currentPlusCode.substr(0,6) + ".png")
+	var fileExists = FileAccess.file_exists("user://MapTiles/" + currentPlusCode.substr(0,6) + ".png")
 	if (fileExists == false):
 		await $MinOfflineData.GetAndProcessData(currentPlusCode.substr(0,6))
 		

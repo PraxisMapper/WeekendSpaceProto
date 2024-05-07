@@ -14,6 +14,8 @@ signal data_saved()
 signal data_ready()
 signal tiles_saved()
 
+signal tile_created(texture)
+
 var plusCode6 = ""
 var scaleVal = 1
 var mapData
@@ -59,7 +61,7 @@ func GetAndProcessData(plusCode, scale = 1):
 		$svc/SubViewport.size = Vector2i(320 * 20 * (1 / scale) * thumbnailScale, 500 * 20 * (1 / scale) * thumbnailScale)
 		await RenderingServer.frame_post_draw
 		var img = await $svc/SubViewport.get_texture().get_image() # Get rendered image
-		await img.save_png("user://MapTiles/" + plusCode6 + ".png") # Save to disk
+		await img.save_png("user://MapTiles/" + plusCode6 + "-thumb.png") # Save to disk
 		
 	
 	$Banner/lblStatus.text = "Tiles Drawn for " + plusCode
@@ -121,6 +123,7 @@ func CreateAllTiles(oneTile = null):
 		xList = oneTile[1]
 		yList = oneTile[0]
 
+	var img1
 	for yChar in yList:
 		#This kept complaining about can't - a Vector2 and an Int so I had to do this.
 		#yPos -= (PlusCodes.CODE_ALPHABET_.find(yChar) * 20 * scale)
@@ -136,7 +139,7 @@ func CreateAllTiles(oneTile = null):
 			camera4.position.x = (PlusCodes.CODE_ALPHABET_.find(xChar) * 320)
 			await RenderingServer.frame_post_draw
 			if makeMapTile == true:
-				var img1 = await viewport1.get_texture().get_image() # Get rendered image
+				img1 = await viewport1.get_texture().get_image() # Get rendered image
 				await img1.save_png("user://MapTiles/" + plusCode6 + yChar + xChar + ".png") # Save to disk
 			if makeNameTile == true:
 				var img2 = await viewport2.get_texture().get_image() # Get rendered image
@@ -148,6 +151,7 @@ func CreateAllTiles(oneTile = null):
 				var img4 = await viewport4.get_texture().get_image() # Get rendered image
 				await img4.save_png("user://TerrainTiles/" + plusCode6 + yChar + xChar + ".png") # Save to disk
 			$Banner/lblStatus.text = "Saved Tiles for " + plusCode6 + yChar + xChar
+			tile_created.emit(img1) #Exclusive logic to this prototype.
 	
 	tiles_saved.emit()
 

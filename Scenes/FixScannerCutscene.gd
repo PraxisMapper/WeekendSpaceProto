@@ -6,31 +6,58 @@ extends Node2D
 #of gauges and dials and indicators that go from slow/blue-green to fast-red
 #over steps. 
 
+#Area for images is 960x1500
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	Start()
-	SetIdleGauges()
-	await get_tree().create_timer(3).timeout
-	print("gauges up")
+	#FlipToThumbnail() #testing the last part.
+	
 	SetBusyGauges()
-	await get_tree().create_timer(3).timeout
-	print("gauges up 2")
-	SetHighGauges()
-	await get_tree().create_timer(3).timeout
-	print("gauges up 3")
-	SetStressedConsole()
-	await get_tree().create_timer(3).timeout
-	print("gauges down")
-	SetIdleGauges()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	$GetFile.file_downloaded.connect(MakeTiles)
+	$OfflineData.tile_created.connect(ShowEachTile)
+	Start()
+	#SetIdleGauges()
+	#await get_tree().create_timer(3).timeout
+	#print("gauges up")
+	#SetBusyGauges()
+	#await get_tree().create_timer(3).timeout
+	#print("gauges up 2")
+	#SetHighGauges()
+	#await get_tree().create_timer(3).timeout
+	#print("gauges up 3")
+	#SetStressedConsole()
+	#await get_tree().create_timer(3).timeout
+	#print("gauges down")
+	#SetIdleGauges()
 
 func Start():
+	var tex1 = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + PraxisCore.currentPlusCode.substr(0,6) + ".png"))
+	$MinDataOverlay/TextureRect.texture = tex1
+	$MinDataOverlay/TextureRect.scale = Vector2(2.1, 3.45) #fill the square new data will be in
+	
+	#TODO: show first cutscene, when over call this
 	$GetFile.getFile(PraxisCore.currentPlusCode.substr(0,4))
+	SetHighGauges()
+	
+	#TODO: resume cutscene.
+	
+	#Final bit of cutscene
+
+func MakeTiles():
+	SetStressedConsole()
+	await $OfflineData.GetAndProcessData(PraxisCore.currentPlusCode.substr(0,6))
+	FlipToThumbnail()
+	
+func ShowEachTile(newTile):
+	$FullDataOverlay/TextureRect.texture = ImageTexture.create_from_image(newTile)
+	$FullDataOverlay/TextureRect.scale = Vector2(2.65, 2.75)
+
+func FlipToThumbnail():
+	var tex2 = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + PraxisCore.currentPlusCode.substr(0,6) + "-thumb.png"))
+	$FullDataOverlay/TextureRect.texture = tex2
+	$FullDataOverlay/TextureRect.scale = Vector2(1.65, 1.71) #is now 512x800
+	SetIdleGauges()
 
 func SetIdleGauges():
 	$Gauge.SetVals(.7, -65, 2)

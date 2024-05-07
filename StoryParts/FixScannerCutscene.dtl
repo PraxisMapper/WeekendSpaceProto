@@ -1,0 +1,3 @@
+Ok here we go
+[wait time="1.0"]
+do GameGlobals.DoStuffFromDialogic("setGauges1")

@@ -216,3 +216,11 @@ func UpdateSideQuests(current):
 func ChangeToFixingScene():
 	#This is called by Dialogic to move us to the scene for fixing the scanner.
 	get_tree().change_scene_to_file("res://Scenes/FixScannerCutscene.tscn")
+
+func DoStuffFromDialogic(actualCall, infoString):
+	#Dialogic needs to call an Autoload to run Godot code,
+	#so this function handles calling whatever is going on in the scene itself.
+	if actualCall == "changeGauges1":
+		#FixScannerCutscene.SetIdleGauges() ?
+		pass
+		
