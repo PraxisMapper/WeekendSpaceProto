@@ -1,13 +1,20 @@
 extends Node2D
 
+
+var indColor1 = Color.DARK_RED
+var indColor2 = Color.LIME_GREEN
+
 var plusCode8
 var visited = {}
 var timeToSwitch = 0
-var colorIndicator = Color.DARK_RED
+var colorIndicator = indColor1
+@export var transparent = false
+
+
 
 func DrawCellTracker(cellTracker, plusCode):
 	visited = cellTracker.visited
-	plusCode8 = plusCode
+	plusCode8 = plusCode.substr(0,8)
 	queue_redraw()
 
 func _draw():
@@ -18,13 +25,29 @@ func _draw():
 	if plusCode8 == null:
 		return
 	
-	draw_rect(Rect2(0, 0, 20 , 20), Color.DIM_GRAY)
-
-	for key in visited.keys():
-		if key.begins_with(plusCode8):
-			var yCoord = PlusCodes.GetLetterIndex(key[8])
-			var xCoord = PlusCodes.GetLetterIndex(key[9])
-			draw_rect(Rect2(xCoord, 19 - yCoord, 1, 1), Color.ANTIQUE_WHITE)
+	var bgColor = Color.DIM_GRAY
+	var visitedColor = Color.ANTIQUE_WHITE
+	if transparent:
+		
+		bgColor.a = 0.6
+		visitedColor.a = 0.1
+		indColor1.a = 0.5
+		indColor2.a = 0.5
+		
+	
+	#redoing this, so exploring brightens up a cell over the drawn map
+	#draw_rect(Rect2(0, 0, 20 , 20), bgColor)
+	var charListX = PlusCodes.CODE_ALPHABET_
+	var charListY = PlusCodes.CODE_ALPHABET_
+	
+	for xval in charListX:
+		var xCoord = PlusCodes.GetLetterIndex(xval)
+		for yval in charListY:
+			var yCoord = PlusCodes.GetLetterIndex(yval)
+			if visited.has(plusCode8 + yval + xval):
+				draw_rect(Rect2(xCoord, 19 - yCoord, 1, 1), visitedColor)
+			else:
+				draw_rect(Rect2(xCoord, 19 - yCoord, 1, 1), bgColor)
 	
 	if PraxisCore.currentPlusCode == "":
 		return
@@ -39,8 +62,8 @@ func _process(delta):
 	timeToSwitch += delta
 	if (timeToSwitch >= 1):
 		timeToSwitch -= 1
-		if colorIndicator == Color.DARK_RED:
-			colorIndicator = Color.LIME_GREEN
+		if colorIndicator == indColor1:
+			colorIndicator = indColor2
 		else:
-			colorIndicator = Color.DARK_RED
+			colorIndicator = indColor1
 		queue_redraw()

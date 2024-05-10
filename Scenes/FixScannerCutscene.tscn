@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmqdi1x0rcuu7"]
+[gd_scene load_steps=7 format=3 uid="uid://cmqdi1x0rcuu7"]
 
 [ext_resource type="Script" path="res://Scenes/FixScannerCutscene.gd" id="1_p6sqy"]
 [ext_resource type="PackedScene" uid="uid://ygh6fmdrxjlk" path="res://Components/GetFile.tscn" id="2_ai62d"]
 [ext_resource type="Texture2D" uid="uid://yfwkub5w8tms" path="res://Resources/FixScannerBg.png" id="2_tb62d"]
 [ext_resource type="PackedScene" uid="uid://c6ws1w5vlmlu0" path="res://Components/Gauge.tscn" id="3_cvwvw"]
 [ext_resource type="PackedScene" uid="uid://b6cfprdbul55o" path="res://PraxisMapper/FullOffline/FullOfflineTiles.tscn" id="5_63b02"]
+[ext_resource type="Theme" uid="uid://qpjfkm1dnyec" path="res://Resources/baseTheme.tres" id="6_7ma7b"]
 
 [node name="FixScannerCutscene" type="Node2D"]
 script = ExtResource("1_p6sqy")
@@ -45,3 +46,13 @@ position = Vector2(31, 1531)
 
 [node name="OfflineData" parent="." instance=ExtResource("5_63b02")]
 makeThumbnail = true
+
+[node name="Button" type="Button" parent="."]
+offset_left = 465.0
+offset_top = 1727.0
+offset_right = 608.0
+offset_bottom = 1762.0
+theme = ExtResource("6_7ma7b")
+text = "Exit Scanner"
+
+[connection signal="pressed" from="Button" to="." method="ExitScanner"]

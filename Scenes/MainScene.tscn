@@ -41,6 +41,7 @@ material = SubResource("ShaderMaterial_5bhj1")
 layout_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="scroll/vbox"]
+visible = false
 position = Vector2(0, 1311)
 texture = ExtResource("8_svb7d")
 centered = false

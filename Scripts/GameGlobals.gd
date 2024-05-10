@@ -70,7 +70,7 @@ var gameData = {
 	awayMissions = [], #require the player to be in the place to end them
 	remoteMissions = [], #these ones dont require you to be in the place to finish
 	sideQuestsInProgress = {}, #TODO: potential nonlinear mission structure.
-	sideQuestsComplete = {},
+	sideQuestsComplete = [], #just names
 	serverUrl = defaultServerUrl
 	
 	#key is quest name/id, values are progressSteps. 
@@ -209,6 +209,7 @@ func LoadGame():
 		#check save version and apply updates by version difference when there are any.
 		if gameData.saveDataVersion <= 1: #Load from Prototype B.
 			gameData.sideQuestProgress = {}
+			gameData.sideQuestsComplete = []
 			gameData.saveDataVersion = 2
 			gameData.serverUrl = defaultServerUrl
 			SaveGame()

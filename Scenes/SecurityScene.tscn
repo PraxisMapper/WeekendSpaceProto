@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1bckdbxcwv0d"]
+[gd_scene load_steps=6 format=3 uid="uid://b1bckdbxcwv0d"]
 
 [ext_resource type="Script" path="res://Scenes/SecurityScene.gd" id="1_trdwt"]
 [ext_resource type="PackedScene" uid="uid://cv6not5nijbvw" path="res://Scenes/PatrolMap.tscn" id="1_ywgle"]
 [ext_resource type="Theme" uid="uid://qpjfkm1dnyec" path="res://Resources/baseTheme.tres" id="2_lhag6"]
+[ext_resource type="PackedScene" uid="uid://b4iw1dedwfuh" path="res://Components/PatrolLog2.tscn" id="4_mer8s"]
+[ext_resource type="Texture2D" uid="uid://k8ue3jveqnhc" path="res://Resources/titleimage.png" id="5_5fjt6"]
 
 [node name="SecurityScene" type="Node2D"]
 script = ExtResource("1_trdwt")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 1089.0
-offset_bottom = 784.0
+offset_bottom = 1426.0
 color = Color(0.0666667, 0, 0, 1)
 
 [node name="Label2" type="Label" parent="."]
@@ -44,10 +46,26 @@ theme = ExtResource("2_lhag6")
 text = "Patrol Map"
 
 [node name="PatrolMap" parent="." instance=ExtResource("1_ywgle")]
-position = Vector2(23, 168)
+position = Vector2(99, 200)
 
-[node name="cell8Img" type="TextureRect" parent="."]
-offset_left = 720.0
-offset_top = 165.0
-offset_right = 760.0
-offset_bottom = 205.0
+[node name="PatrolMap2" parent="." instance=ExtResource("4_mer8s")]
+visible = false
+position = Vector2(99, 215)
+scale = Vector2(2, 2)
+
+[node name="LogoPadding" type="TextureRect" parent="."]
+offset_top = 817.0
+offset_right = 1080.0
+offset_bottom = 1424.0
+texture = ExtResource("5_5fjt6")
+
+[node name="btnLoadData" type="Button" parent="."]
+visible = false
+offset_left = 791.0
+offset_top = 51.0
+offset_right = 1066.0
+offset_bottom = 86.0
+theme = ExtResource("2_lhag6")
+text = "Load Detailed Scan Data"
+
+[connection signal="pressed" from="btnLoadData" to="." method="LoadScanData"]

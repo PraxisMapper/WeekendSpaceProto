@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpp7du3n8uigb"]
+
+[ext_resource type="Script" path="res://Components/PatrolLogOffline.gd" id="1_w1klq"]
+[ext_resource type="Script" path="res://Components/CellTracker6Drawer.gd" id="2_tib33"]
+
+[node name="PatrolLogOffline" type="Node2D"]
+script = ExtResource("1_w1klq")
+
+[node name="trMapTile" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2, 2)
+
+[node name="cellTracker" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+script = ExtResource("2_tib33")
+transparent = true

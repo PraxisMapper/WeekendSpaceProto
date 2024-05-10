@@ -8,6 +8,9 @@ extends Node2D
 
 #Area for images is 960x1500
 
+#TODO: this seems to have drawn some tiles with black areas that shouldn't be?
+#was done in the spot north of the current test area. Why? Was that somehow correct?
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -80,3 +83,6 @@ func SetStressedConsole():
 	$Gauge.SetVals(.1, 65, 0.1)
 	$Gauge2.SetVals(.1, 65, 0.1)
 	$Gauge3.SetVals(.1, 65, 0.1)
+
+func ExitScanner():
+	get_tree().change_scene_to_file("res://Scenes/MainScene.tscn")
