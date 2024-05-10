@@ -11,13 +11,16 @@ var isAtHomeBase = false
 var ignoreList = {}
 var styleData = {}
 
+var defaultServerUrl = "https://global.praxismapper.org/Content/OfflineData/"
+
 var sideQuests = {
 	FixScanner = {
+		start = {requirement = "MainQuest:2", storyName = "FixScanner1"},
 		steps = [
 			#After Story 2 is complete, run the FixScanner1 story
-			{requirement = "MainQuest:2", storyName = "FixScanner1"},
 			#On arrival at a library, play FixScanner2
 			{requirement = "place:library", storyName = "FixScanner2"},
+			{requirement = "wait:library:5", storyName = "FixScanner2"},
 			#on arrival at a graveyard, play FixScanner3
 			{requirement = "place:graveyard", storyName = "FixScanner3"},
 			#Wait 5 minutes at a graveyard, then run the fixing cutscene.
@@ -67,7 +70,8 @@ var gameData = {
 	awayMissions = [], #require the player to be in the place to end them
 	remoteMissions = [], #these ones dont require you to be in the place to finish
 	sideQuestsInProgress = {}, #TODO: potential nonlinear mission structure.
-	sideQuestsComplete = {}
+	sideQuestsComplete = {},
+	serverUrl = defaultServerUrl
 	
 	#key is quest name/id, values are progressSteps. 
 }
@@ -206,12 +210,25 @@ func LoadGame():
 		if gameData.saveDataVersion <= 1: #Load from Prototype B.
 			gameData.sideQuestProgress = {}
 			gameData.saveDataVersion = 2
+			gameData.serverUrl = defaultServerUrl
 			SaveGame()
 
 func UpdateSideQuests(current):
-	pass
+	#first check if any side quests are eligible to start
+	for quest in sideQuests:
+		if gameData.sideQuestsComplete.find(quest) > -1:
+			continue
+		
+		#check the start requirements
+		#TODO: multiple requirements? or chain quests?
+		var req = quest.start.requirement
+		if req.begins_with("MainQuest"):
+			pass
+			#this doesnt show up until you've gotten so far in the main quest.
+	
 	#for each active side quest, check what their progress requirement is
 	#and if its complete, fire up the next step of that side quest (dialogic)
+	#Also, for each side quest not started or in-progress, see if we can start it.
 	
 func ChangeToFixingScene():
 	#This is called by Dialogic to move us to the scene for fixing the scanner.
@@ -223,4 +240,8 @@ func DoStuffFromDialogic(actualCall, infoString):
 	if actualCall == "changeGauges1":
 		#FixScannerCutscene.SetIdleGauges() ?
 		pass
+	if actualCall == "ReturnToMain":
+		get_tree().change_scene_to_file("res://Scenes/MainScene.tscn")
+		#Remove the bottom node from the main tree
+		#get_tree().queue_delete()
 		

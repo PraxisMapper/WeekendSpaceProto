@@ -36,9 +36,11 @@ func Start():
 	$MinDataOverlay/TextureRect.texture = tex1
 	$MinDataOverlay/TextureRect.scale = Vector2(2.1, 3.45) #fill the square new data will be in
 	
+	$FullDataOverlay/TextureRect.scale = Vector2(2.65, 2.75)
 	#TODO: show first cutscene, when over call this
-	$GetFile.getFile(PraxisCore.currentPlusCode.substr(0,4))
 	SetHighGauges()
+	$GetFile.getFile(PraxisCore.currentPlusCode.substr(0,4))
+	
 	
 	#TODO: resume cutscene.
 	
@@ -50,8 +52,8 @@ func MakeTiles():
 	FlipToThumbnail()
 	
 func ShowEachTile(newTile):
-	$FullDataOverlay/TextureRect.texture = ImageTexture.create_from_image(newTile)
-	$FullDataOverlay/TextureRect.scale = Vector2(2.65, 2.75)
+	$FullDataOverlay/TextureRect.texture = newTile #ImageTexture.create_from_image(newTile)
+	
 
 func FlipToThumbnail():
 	var tex2 = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + PraxisCore.currentPlusCode.substr(0,6) + "-thumb.png"))

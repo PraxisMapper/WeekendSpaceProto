@@ -40,6 +40,8 @@ directories/dtl_directory={
 "FixScanner3": "res://StoryParts/FixScanner3.dtl",
 "FixScanner4": "res://StoryParts/FixScanner4.dtl",
 "FixScannerCutscene": "res://StoryParts/FixScannerCutscene.dtl",
+"FixScannerError1": "res://StoryParts/FixScannerError1.dtl",
+"FixScannerError2": "res://StoryParts/FixScannerError2.dtl",
 "HelpGeneral": "res://StoryParts/HelpGeneral.dtl",
 "HelpMenu": "res://StoryParts/HelpMenu.dtl",
 "HelpPlusCodes": "res://StoryParts/HelpPlusCodes.dtl",

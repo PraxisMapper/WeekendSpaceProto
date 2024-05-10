@@ -40,5 +40,13 @@ func UpdateBatterySaver(newState):
 	else:
 		Engine.max_fps = 60
 
+func UpdateServer(newServer):
+	GameGlobals.gameData.serverUrl = newServer
+	GameGlobals.SaveGame()
+	
+func ResetServer():
+	GameGlobals.gameData.serverUrl = GameGlobals.defaultServerUrl
+	GameGlobals.SaveGame()
+
 func Close():
 	queue_free()

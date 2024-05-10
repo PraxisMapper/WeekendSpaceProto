@@ -81,6 +81,28 @@ offset_bottom = 93.0
 theme = ExtResource("2_q863e")
 text = "Battery Saver (30FPS)"
 
+[node name="Label2" type="Label" parent="."]
+offset_left = 285.0
+offset_top = 148.0
+offset_right = 605.0
+offset_bottom = 175.0
+theme = ExtResource("2_q863e")
+text = "Server for drawable tile data:"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = 622.0
+offset_top = 141.0
+offset_right = 997.0
+offset_bottom = 172.0
+
+[node name="Button" type="Button" parent="."]
+offset_left = 333.0
+offset_top = 183.0
+offset_right = 598.0
+offset_bottom = 218.0
+theme = ExtResource("2_q863e")
+text = "Reset to Default Server"
+
 [connection signal="toggled" from="chkNatureReserve" to="." method="UpdateNatureReserve"]
 [connection signal="toggled" from="chkUniversity" to="." method="UpdateUniversity"]
 [connection signal="toggled" from="chkPark" to="." method="UpdatePark"]
