@@ -11,6 +11,17 @@ extends Node2D
 #TODO: this seems to have drawn some tiles with black areas that shouldn't be?
 #was done in the spot north of the current test area. Why? Was that somehow correct?
 
+
+#Alternative idea for this scene:
+#A button to it is always present on the main screen (maybe in patrol log?)
+#going to it bring you here, and we kick off the first cutscene and start the side quest
+#with the "visit a library" objective, then run the chain from there instead of
+#waiting 2 missions to kick it off. 
+#This mostly resolves the UI issue of where to display side quests, which is
+#fine if I'm only doing 1 of them for a prototype.
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	

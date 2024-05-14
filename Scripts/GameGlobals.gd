@@ -68,8 +68,9 @@ var gameData = {
 	lastTick = 0, #unix system time
 	baseSalary = 1, #can this be increased separately?
 	awayMissions = [], #require the player to be in the place to end them
-	remoteMissions = [], #these ones dont require you to be in the place to finish
+	remoteMissions = [], #these ones dont require you to be in the place to finish	
 	sideQuestsInProgress = {}, #TODO: potential nonlinear mission structure.
+	sideQuestsEligible = [], #just names, but quit checking on these ones.
 	sideQuestsComplete = [], #just names
 	serverUrl = defaultServerUrl
 	
@@ -104,6 +105,7 @@ func PluscodeChanged(currentPlusCode, previousPlusCode):
 		await PraxisCore.MakeMinimizedOfflineTiles(filename) #Works, because this adds node to the current tree.
 	
 	cellTracker.Add(currentPlusCode)
+	UpdateSideQuests(currentPlusCode)
 	pluscode_changed.emit(currentPlusCode, previousPlusCode)
 
 #Unused for the prototype
@@ -210,23 +212,35 @@ func LoadGame():
 		if gameData.saveDataVersion <= 1: #Load from Prototype B.
 			gameData.sideQuestProgress = {}
 			gameData.sideQuestsComplete = []
+			gameData.sideQuestsEligible = []
 			gameData.saveDataVersion = 2
 			gameData.serverUrl = defaultServerUrl
 			SaveGame()
 
+#Side Quest logic:
+#Once you hit some criteria, a side quest goes on the Eligible list
+#and stays there until you start it. Once started, it goes into the 
+#InProgress dictionary by its name, with a schema of roughly
+#{step = 1, requirement="whatever", }
 func UpdateSideQuests(current):
-	#first check if any side quests are eligible to start
+	#first check if any side quests are eligible to start,
+	#skipping ones we're already eligible for or started.
 	for quest in sideQuests:
-		if gameData.sideQuestsComplete.find(quest) > -1:
+		if gameData.sideQuestsComplete.find(quest) > -1 or gameData.sideQuestsEligible.find(quest) > -1:
+			print("quest " + quest + " already eligible/completed")
 			continue
 		
+		var thisQuest = sideQuests[quest]
 		#check the start requirements
 		#TODO: multiple requirements? or chain quests?
-		var req = quest.start.requirement
+		var req = thisQuest.start.requirement
 		if req.begins_with("MainQuest"):
-			pass
 			#this doesnt show up until you've gotten so far in the main quest.
-	
+			var step = int(req.replace("MainQuest:", ""))
+			if gameData.plotProgress >= step:
+				print("adding side quest " + quest + " to eligible list")
+				gameData.sideQuestsEligible.push_back(quest)
+			
 	#for each active side quest, check what their progress requirement is
 	#and if its complete, fire up the next step of that side quest (dialogic)
 	#Also, for each side quest not started or in-progress, see if we can start it.

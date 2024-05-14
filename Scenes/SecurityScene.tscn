@@ -68,4 +68,13 @@ offset_bottom = 86.0
 theme = ExtResource("2_lhag6")
 text = "Load Detailed Scan Data"
 
+[node name="Button" type="Button" parent="."]
+offset_left = 770.0
+offset_top = 15.0
+offset_right = 1069.0
+offset_bottom = 50.0
+theme = ExtResource("2_lhag6")
+text = "Force-download map data"
+
 [connection signal="pressed" from="btnLoadData" to="." method="LoadScanData"]
+[connection signal="pressed" from="Button" to="." method="LoadScanData"]

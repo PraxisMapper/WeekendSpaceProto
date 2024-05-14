@@ -30,6 +30,7 @@ func on_pluscode_changed(currentPlusCode, previousPlusCode):
 		await $MinOfflineData.GetAndProcessData(currentPlusCode.substr(0,6))
 		
 	var currentPlace = GameGlobals.currentPlaceName
+	#TODO: if we have full drawable data, check that instead of minimized data
 	var placeData = $PlaceTracker.CheckForPlace(currentPlusCode)
 	
 	if (placeData[0] != currentPlace):
@@ -44,9 +45,15 @@ func on_place_changed(newPlace):
 
 func ShowScanExplorer():
 	print("showing Scan Explorer")
-	var PLse = preload("res://Scenes/ScanExplorer.tscn")
-	var se =PLse.instantiate()
-	se.position.y = 000
+	var nextScene
+	var code4 = PraxisCore.currentPlusCode.substr(0,4)
+	var hasDetailedData = FileAccess.file_exists("user://Data/Full/" + code4 + ".zip")
+	if hasDetailedData == true:
+		nextScene = preload("res://Scenes/FullScanExplorer.tscn")
+	else:
+		nextScene = preload("res://Scenes/ScanExplorer.tscn")
+	var se = nextScene.instantiate()
+	se.position.y = 0
 	add_child(se)
 
 func ShowOptions():

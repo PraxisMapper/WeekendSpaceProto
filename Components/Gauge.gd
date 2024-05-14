@@ -31,6 +31,6 @@ func TweenThis():
 	tweenA.tween_property($line, 'rotation', deg_to_rad(nextAngle), nextTime)
 	var tweenB = create_tween()
 	tweenB.tween_property($bg, 'modulate', nextColor, 0.2)
-	await get_tree().create_timer(2.0 * randf())
+	await get_tree().create_timer(2.0 * randf()).timeout
 	tweenA.tween_callback(TweenThis)
 

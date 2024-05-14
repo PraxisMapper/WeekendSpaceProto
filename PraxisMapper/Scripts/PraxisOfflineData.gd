@@ -70,6 +70,11 @@ static func IsPointInPlace(point, place):
 	#requires full drawing data. Minimized offline data is just a distance function vs the radius
 	#point is a Vector2, placePoly is a PackedVector2Array from PraxisCore.GetDataFromZip
 	
+	#TODO: When loading data from JSON, calculate the min/max corners for each place
+	#and save those to the place. Then, when scanning here, check if the point is inside
+	#those min/max values. If its not, return false. If it is, do the full geometry scan.
+	#LATER TODO: have the server do those calculations when creating the JSON files?
+	#and then here check if they exist or not before calculating them here on demand.
 	var inside = false
 	
 	if place.gt == 1:

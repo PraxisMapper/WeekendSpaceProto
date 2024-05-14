@@ -213,5 +213,15 @@ offset_right = 266.0
 offset_bottom = 79.0
 theme = ExtResource("2_dytlm")
 
+[node name="Button3" type="Button" parent="."]
+offset_left = 852.0
+offset_top = 53.0
+offset_right = 1068.0
+offset_bottom = 88.0
+theme = ExtResource("2_dytlm")
+text = "Switch to Full Data
+"
+
 [connection signal="pressed" from="Button" to="." method="GetAreaInfo"]
 [connection signal="pressed" from="Button2" to="." method="Close"]
+[connection signal="pressed" from="Button3" to="." method="SwitchToFull"]
