@@ -50,7 +50,7 @@ position = Vector2(99, 200)
 
 [node name="PatrolMap2" parent="." instance=ExtResource("4_mer8s")]
 visible = false
-position = Vector2(99, 215)
+position = Vector2(45, 215)
 scale = Vector2(2, 2)
 
 [node name="LogoPadding" type="TextureRect" parent="."]
@@ -69,12 +69,22 @@ theme = ExtResource("2_lhag6")
 text = "Load Detailed Scan Data"
 
 [node name="Button" type="Button" parent="."]
+visible = false
 offset_left = 770.0
 offset_top = 15.0
 offset_right = 1069.0
 offset_bottom = 50.0
 theme = ExtResource("2_lhag6")
 text = "Force-download map data"
+
+[node name="lblAllPlaces" type="Label" parent="."]
+visible = false
+offset_left = 709.0
+offset_top = 215.0
+offset_right = 786.0
+offset_bottom = 242.0
+theme = ExtResource("2_lhag6")
+text = "Places:"
 
 [connection signal="pressed" from="btnLoadData" to="." method="LoadScanData"]
 [connection signal="pressed" from="Button" to="." method="LoadScanData"]

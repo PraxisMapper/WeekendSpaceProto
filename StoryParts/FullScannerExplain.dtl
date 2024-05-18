@@ -1,0 +1,6 @@
+[background arg="res://Resources/BGFade.png" fade="0.0"]
+join Boss 1
+Boss: Also, I'm pleased to report that the high-detail scanner is back online... probably.
+Boss: Everything is working on our end to pull in extremely detailed data into the scanner and process it to provide us with close-up maps of the area we're patrolling. Assuming there's a strong signal and no interference, of course.
+Boss: It will take a minute, but once it's got all the area data it'll draw the region for us and we can use the detailed maps instead of the estimated areas you've already seen. None of your activies actually change once you've upgraded the map data, just the detail available to you visually.
+Boss: Click on the "Load Detailed Scan Data" button in the Patrol Log to fire it up and get your new maps.

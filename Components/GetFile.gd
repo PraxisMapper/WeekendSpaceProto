@@ -12,8 +12,11 @@ signal file_downloaded()
 func getFile(plusCode4):
 	var cell2 = plusCode4.substr(0,2)
 	if FileAccess.file_exists("user://Data/Full/" + plusCode4 + ".zip"):
-		file_downloaded.emit()
-		return #already downloaded this! May have a future setup to force this.
+		var reader = ZIPReader.new()
+		var isGoodFile = reader.open("user://Data/Full/" + plusCode4 + ".zip")
+		if isGoodFile == OK:
+			file_downloaded.emit()
+			return #already downloaded this! May have a future setup to force this.
 	
 	$client.request_completed.connect(request_complete)
 	$client.download_file = "user://Data/Full/" + plusCode4 + ".zip"

@@ -14,11 +14,21 @@ func UpdateTotal(_cur, _old):
 		$PatrolMap.visible = false
 		$LogoPadding.visible = false
 		$btnLoadData.visible = false
+		$lblAllPlaces.visible = true
+		var placeText = "Places:\n"
+		#Cell11 / 12 checking is a future task.
+		var places = GameGlobals.placeTracker.GetDataOnPointFull(_cur.replace("+", "").substr(0,10)) 
+		for place in places:
+			placeText += place.split("|")[0] + "\n"
+		$lblAllPlaces.text = placeText
 	else:
 		$PatrolMap2.visible = false
 		$PatrolMap.visible = true
 		$LogoPadding.visible = true
-		if GameGlobals.gameData.sideQuestsComplete.find("FixScanner") > -1 or GameGlobals.debug == true:
+		$lblAllPlaces.visible = false
+		#if GameGlobals.gameData.sideQuestsComplete.find("FixScanner") > -1 or GameGlobals.debug == true:
+		print(str(GameGlobals.gameData.plotProgress))
+		if GameGlobals.gameData.plotProgress >= 1:
 			$btnLoadData.visible = true
 
 func _ready():

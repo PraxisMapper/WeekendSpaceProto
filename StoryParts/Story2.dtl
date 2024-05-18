@@ -8,3 +8,4 @@ There's 20 letters in the PlusCode alphabet, starting with numbers 2 through 9, 
 The 'smallest' pair, 22, means the southwest corner of that particular grid space, and the 'largest', XX, is the northeast corner. X2 would be the northwest corner. FF is the middle of a grid.
 Boss: It's not always easy at first, but with a little practice you can start getting quick estimates of distance and direction in your head by comparing your destination and current PlusCode.
 Boss: Scout out your destination, and report back once you've arrived there, Captain.
+jump FullScannerExplain/

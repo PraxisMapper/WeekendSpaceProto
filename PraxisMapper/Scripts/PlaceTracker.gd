@@ -12,6 +12,7 @@ var checkedPlusCode = ""
 var currentData
 var currentNameTile
 var currentTerrainTile
+var currentPlaces = []
 
 signal place_changed(newplace)
 
@@ -132,10 +133,11 @@ func CheckForPlaceFull(plusCode10):
 	#since this only shows 1 name, it's fastest to start at the end of the array
 	#and work backwards.
 	
-	#NOTE: place detection is off. TODO: test this out and confirm why lines seem to be off.
+	#NOTE: place detection is inaccurate. TODO: test and determine correct math.
 	
 	plusCode10 = plusCode10.replace("+", "")
 	var data = await GetDataOnPointFull(plusCode10)
+	currentPlaces = data
 	if data.size() == 0:
 		return [""]
 		
@@ -143,7 +145,6 @@ func CheckForPlaceFull(plusCode10):
 	return smallest.split("|")
 
 func GetDataOnPointFull(plusCode10):
-	pass
 	var results = []
 	var places = await PraxisOfflineData.GetPlacesPresent(plusCode10)
 	for place in places:

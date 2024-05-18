@@ -8,7 +8,8 @@ func UpdateDisplay(cur, _old):
 	$lblArea.text = cur.substr(0,6)
 	
 func Close():
-	queue_free()
+	#queue_free() #works unless you swapped in here from the other scanner.
+	get_tree().change_scene_to_file("res://Scenes/MainScene.tscn")
 
 func GetAreaInfo():
 	var requirements = ""

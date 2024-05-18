@@ -16,10 +16,6 @@ func SetVals(hue, angle, time):
 	avgAngle = angle
 	avgTime = time
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
 func TweenThis():
 	var nextHue = avgHue + randf_range(-0.1, 0.1)
 	var nextAngle = avgAngle + randi_range(-20, 20)
@@ -31,6 +27,4 @@ func TweenThis():
 	tweenA.tween_property($line, 'rotation', deg_to_rad(nextAngle), nextTime)
 	var tweenB = create_tween()
 	tweenB.tween_property($bg, 'modulate', nextColor, 0.2)
-	await get_tree().create_timer(2.0 * randf()).timeout
 	tweenA.tween_callback(TweenThis)
-

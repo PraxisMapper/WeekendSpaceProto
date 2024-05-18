@@ -217,6 +217,7 @@ func LoadGame():
 			gameData.serverUrl = defaultServerUrl
 			SaveGame()
 
+#Skipping side quest logic for now, in favor of shipping this working instead.
 #Side Quest logic:
 #Once you hit some criteria, a side quest goes on the Eligible list
 #and stays there until you start it. Once started, it goes into the 

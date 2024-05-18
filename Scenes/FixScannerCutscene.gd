@@ -65,6 +65,7 @@ func MakeTiles():
 	SetStressedConsole()
 	await $OfflineData.GetAndProcessData(PraxisCore.currentPlusCode.substr(0,6))
 	FlipToThumbnail()
+	#$btnExit.visible = true #TODO: hide button until complete or error?
 	
 func ShowEachTile(newTile):
 	$FullDataOverlay/TextureRect.texture = newTile #ImageTexture.create_from_image(newTile)

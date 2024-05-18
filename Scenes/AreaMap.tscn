@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://df5d7lh3wo3e1"]
+[gd_scene load_steps=5 format=3 uid="uid://df5d7lh3wo3e1"]
 
 [ext_resource type="Script" path="res://Scenes/AreaMap.gd" id="1_juvc3"]
 [ext_resource type="Theme" uid="uid://qpjfkm1dnyec" path="res://Resources/baseTheme.tres" id="2_1erg1"]
 [ext_resource type="Script" path="res://PraxisMapper/Scripts/DrawMinOfflineTile.gd" id="3_7gha6"]
+[ext_resource type="Script" path="res://Scenes/fullMapLines.gd" id="4_3c3nt"]
 
 [node name="AreaMap" type="Node2D"]
 script = ExtResource("1_juvc3")
@@ -20,14 +21,14 @@ offset_bottom = 713.0
 theme = ExtResource("2_1erg1")
 text = "Close Map"
 
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="DrawnMap" type="Node2D" parent="."]
 position = Vector2(10, 820)
 scale = Vector2(2, 2)
 script = ExtResource("3_7gha6")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="lblMapKey" type="Label" parent="."]
 offset_left = 820.0
@@ -59,5 +60,8 @@ offset_right = 886.0
 offset_bottom = 541.0
 theme = ExtResource("2_1erg1")
 text = "Scale:"
+
+[node name="fullMapLines" type="Node2D" parent="."]
+script = ExtResource("4_3c3nt")
 
 [connection signal="pressed" from="Button" to="." method="Close"]

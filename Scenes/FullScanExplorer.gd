@@ -11,6 +11,7 @@ func _ready():
 	var style = PraxisCore.GetStyle("mapTiles")
 	#var typeList = []
 	var entries = []
+	entries.push_back({name = "All", id = 0})
 	for type in style.keys():
 		#typeList.push_back(style[types].name)
 		entries.push_back({name = style[type].name, id = int(type)})
@@ -24,7 +25,8 @@ func UpdateDisplay(cur, _old):
 	$lblArea.text = cur.substr(0,6)
 	
 func Close():
-	queue_free()
+	#queue_free()
+	get_tree().change_scene_to_file("res://Scenes/MainScene.tscn")
 
 func GetAreaInfo():
 	var requirements = ""

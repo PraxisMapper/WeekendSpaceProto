@@ -82,6 +82,8 @@ func ReadPlaces(plusCode, category, terrainID, requirements, options = [], ignor
 		#quick hack
 		if xCode8 == 20:
 			xCode8 = 19
+		if yCode8 == 20:
+			yCode8 = 19
 		
 		var centerCode = plusCode + PlusCodes.CODE_ALPHABET_[yCode8]+ PlusCodes.CODE_ALPHABET_[xCode8] + "+" + PlusCodes.CODE_ALPHABET_[yCode10]+ PlusCodes.CODE_ALPHABET_[xCode10]
 		reportedData.center = centerCode
