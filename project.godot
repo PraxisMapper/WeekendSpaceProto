@@ -31,7 +31,7 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 directories/dch_directory={
 "Boss": "res://StoryParts/Boss.dch",
 "StoryParts/Boss": "res://android/build/assets/StoryParts/Boss.dch",
-"mergeReleaseAssets/StoryParts/Boss": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Boss.dch"
+"mergeDebugAssets/StoryParts/Boss": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Boss.dch"
 }
 directories/dtl_directory={
 "Error": "res://StoryParts/Error.dtl",
@@ -56,6 +56,13 @@ directories/dtl_directory={
 "Story8": "res://StoryParts/Story8.dtl",
 "Story9": "res://StoryParts/Story9.dtl",
 "StoryParts/Error": "res://android/build/assets/StoryParts/Error.dtl",
+"StoryParts/FixScanner1": "res://android/build/assets/StoryParts/FixScanner1.dtl",
+"StoryParts/FixScanner2": "res://android/build/assets/StoryParts/FixScanner2.dtl",
+"StoryParts/FixScanner3": "res://android/build/assets/StoryParts/FixScanner3.dtl",
+"StoryParts/FixScanner4": "res://android/build/assets/StoryParts/FixScanner4.dtl",
+"StoryParts/FixScannerCutscene": "res://android/build/assets/StoryParts/FixScannerCutscene.dtl",
+"StoryParts/FixScannerError1": "res://android/build/assets/StoryParts/FixScannerError1.dtl",
+"StoryParts/FixScannerError2": "res://android/build/assets/StoryParts/FixScannerError2.dtl",
 "StoryParts/HelpGeneral": "res://android/build/assets/StoryParts/HelpGeneral.dtl",
 "StoryParts/HelpMenu": "res://android/build/assets/StoryParts/HelpMenu.dtl",
 "StoryParts/HelpPlusCodes": "res://android/build/assets/StoryParts/HelpPlusCodes.dtl",
@@ -71,21 +78,28 @@ directories/dtl_directory={
 "StoryParts/Story9": "res://android/build/assets/StoryParts/Story9.dtl",
 "StoryParts/Timeline1": "res://android/build/assets/StoryParts/Timeline1.dtl",
 "Timeline1": "res://StoryParts/Timeline1.dtl",
-"mergeReleaseAssets/StoryParts/Error": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Error.dtl",
-"mergeReleaseAssets/StoryParts/HelpGeneral": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/HelpGeneral.dtl",
-"mergeReleaseAssets/StoryParts/HelpMenu": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/HelpMenu.dtl",
-"mergeReleaseAssets/StoryParts/HelpPlusCodes": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/HelpPlusCodes.dtl",
-"mergeReleaseAssets/StoryParts/HelpUI": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/HelpUI.dtl",
-"mergeReleaseAssets/StoryParts/Story1": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Story1.dtl",
-"mergeReleaseAssets/StoryParts/Story2": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Story2.dtl",
-"mergeReleaseAssets/StoryParts/Story3": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Story3.dtl",
-"mergeReleaseAssets/StoryParts/Story4": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Story4.dtl",
-"mergeReleaseAssets/StoryParts/Story5": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Story5.dtl",
-"mergeReleaseAssets/StoryParts/Story6": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Story6.dtl",
-"mergeReleaseAssets/StoryParts/Story7": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Story7.dtl",
-"mergeReleaseAssets/StoryParts/Story8": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Story8.dtl",
-"mergeReleaseAssets/StoryParts/Story9": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Story9.dtl",
-"mergeReleaseAssets/StoryParts/Timeline1": "res://android/build/build/intermediates/assets/release/mergeReleaseAssets/StoryParts/Timeline1.dtl"
+"mergeDebugAssets/StoryParts/Error": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Error.dtl",
+"mergeDebugAssets/StoryParts/FixScanner1": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/FixScanner1.dtl",
+"mergeDebugAssets/StoryParts/FixScanner2": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/FixScanner2.dtl",
+"mergeDebugAssets/StoryParts/FixScanner3": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/FixScanner3.dtl",
+"mergeDebugAssets/StoryParts/FixScanner4": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/FixScanner4.dtl",
+"mergeDebugAssets/StoryParts/FixScannerCutscene": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/FixScannerCutscene.dtl",
+"mergeDebugAssets/StoryParts/FixScannerError1": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/FixScannerError1.dtl",
+"mergeDebugAssets/StoryParts/FixScannerError2": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/FixScannerError2.dtl",
+"mergeDebugAssets/StoryParts/HelpGeneral": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/HelpGeneral.dtl",
+"mergeDebugAssets/StoryParts/HelpMenu": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/HelpMenu.dtl",
+"mergeDebugAssets/StoryParts/HelpPlusCodes": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/HelpPlusCodes.dtl",
+"mergeDebugAssets/StoryParts/HelpUI": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/HelpUI.dtl",
+"mergeDebugAssets/StoryParts/Story1": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Story1.dtl",
+"mergeDebugAssets/StoryParts/Story2": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Story2.dtl",
+"mergeDebugAssets/StoryParts/Story3": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Story3.dtl",
+"mergeDebugAssets/StoryParts/Story4": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Story4.dtl",
+"mergeDebugAssets/StoryParts/Story5": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Story5.dtl",
+"mergeDebugAssets/StoryParts/Story6": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Story6.dtl",
+"mergeDebugAssets/StoryParts/Story7": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Story7.dtl",
+"mergeDebugAssets/StoryParts/Story8": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Story8.dtl",
+"mergeDebugAssets/StoryParts/Story9": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Story9.dtl",
+"mergeDebugAssets/StoryParts/Timeline1": "res://android/build/build/intermediates/assets/debug/mergeDebugAssets/StoryParts/Timeline1.dtl"
 }
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true

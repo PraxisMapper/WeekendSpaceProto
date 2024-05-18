@@ -12,8 +12,6 @@ extends Node
 #var debugStartingPlusCode = "8Q336FJCRV" #Peoples Park, Shanghai, China
 #var debugStartingPlusCode = "7JWVP5923M" #Shalimar Bagh, Delhi, India
 var debugStartingPlusCode = "86FRXXXPM8" #Ohio State University, Columbus, OH, USA
-#DELETE THIS BEFORE CHECKIN
-#var debugStartingPlusCode = "86HWHHMM24" #Ohio State University, Columbus, OH, USA
 
 #System global values
 #Resolution of PlusCode cells in degrees

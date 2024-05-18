@@ -19,6 +19,7 @@ extends Node2D
 #waiting 2 missions to kick it off. 
 #This mostly resolves the UI issue of where to display side quests, which is
 #fine if I'm only doing 1 of them for a prototype.
+#for this, dont pick 'specific library'. pick 'Any library' and show distance to closest one.
 
 
 
