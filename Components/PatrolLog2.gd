@@ -18,5 +18,6 @@ func _process(delta):
 
 func plusCodeChanged(cur, _old):
 	$cellTracker.DrawCellTracker(GameGlobals.cellTracker, cur.substr(0,8))
-	if cur != lastPlusCode:
-		$trMapTile.texture = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + cur.substr(0,8) + ".png"))
+	
+	if _old == null or cur.substr(0,8) != _old.substr(0,8):
+		$trMapTile.texture = await PraxisCore.GetCell8Tile(cur.substr(0,8))

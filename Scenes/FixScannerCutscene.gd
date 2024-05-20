@@ -21,11 +21,14 @@ extends Node2D
 #fine if I'm only doing 1 of them for a prototype.
 #for this, dont pick 'specific library'. pick 'Any library' and show distance to closest one.
 
-
+var plusCode = ''
 
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
 	
+	plusCode = PraxisCore.currentPlusCode #default behavior
+	#plusCode = "8FW4V75W25" # force-testing certain locations (Paris)
 	#FlipToThumbnail() #testing the last part.
 	
 	SetBusyGauges()
@@ -47,14 +50,14 @@ func _ready():
 	#SetIdleGauges()
 
 func Start():
-	var tex1 = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + PraxisCore.currentPlusCode.substr(0,6) + ".png"))
+	var tex1 = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + plusCode.substr(0,6) + ".png"))
 	$MinDataOverlay/TextureRect.texture = tex1
 	$MinDataOverlay/TextureRect.scale = Vector2(2.1, 3.45) #fill the square new data will be in
 	
 	$FullDataOverlay/TextureRect.scale = Vector2(2.65, 2.75)
 	#TODO: show first cutscene, when over call this
 	SetHighGauges()
-	$GetFile.getFile(PraxisCore.currentPlusCode.substr(0,4))
+	$GetFile.getFile(plusCode.substr(0,4))
 	
 	
 	#TODO: resume cutscene.
@@ -63,7 +66,7 @@ func Start():
 
 func MakeTiles():
 	SetStressedConsole()
-	await $OfflineData.GetAndProcessData(PraxisCore.currentPlusCode.substr(0,6))
+	await $OfflineData.GetAndProcessData(plusCode.substr(0,6))
 	FlipToThumbnail()
 	#$btnExit.visible = true #TODO: hide button until complete or error?
 	
@@ -72,7 +75,7 @@ func ShowEachTile(newTile):
 	
 
 func FlipToThumbnail():
-	var tex2 = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + PraxisCore.currentPlusCode.substr(0,6) + "-thumb.png"))
+	var tex2 = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + plusCode.substr(0,6) + "-thumb.png"))
 	$FullDataOverlay/TextureRect.texture = tex2
 	$FullDataOverlay/TextureRect.scale = Vector2(1.65, 1.71) #is now 512x800
 	SetIdleGauges()

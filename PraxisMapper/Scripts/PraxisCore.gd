@@ -6,12 +6,12 @@ extends Node
 #This variable should exist for debugging purposes, but I've provided a few choices for convenience.
 #var debugStartingPlusCode = "85633QG4VV" #Elysian Park, Los Angeles, CA, USA
 #var debugStartingPlusCode = "87G8Q2JMGF" #Central Park, New York City, NY, USA
-#var debugStartingPlusCode = "8FW4V75W25" #Eiffel Tower Garden, France
+var debugStartingPlusCode = "8FW4V75W25" #Eiffel Tower Garden, France
 #var debugStartingPlusCode = "9C3XGV349C" #The Green Park, London, UK
 #var debugStartingPlusCode = "8Q7XMQJ595" #Kokyo Kien National Garden, Tokyo, Japan
 #var debugStartingPlusCode = "8Q336FJCRV" #Peoples Park, Shanghai, China
 #var debugStartingPlusCode = "7JWVP5923M" #Shalimar Bagh, Delhi, India
-var debugStartingPlusCode = "86FRXXXPM8" #Ohio State University, Columbus, OH, USA
+#var debugStartingPlusCode = "86HWGGGP22" #Ohio State University, Columbus, OH, USA
 
 #System global values
 #Resolution of PlusCode cells in degrees
@@ -124,6 +124,21 @@ func MakeOfflineTiles(plusCode, scale = 1):
 	add_child(offlineInst)
 	await offlineInst.GetAndProcessData(plusCode, scale)
 	remove_child(offlineInst)
+
+func GetCell8Tile(plusCode8):
+	if FileAccess.file_exists("user://MapTiles/" + plusCode8 + ".png"):
+		return ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + plusCode8 + ".png"))
+	
+	var results = await MakeOneOfflineTiles(plusCode8)
+	return results
+
+func MakeOneOfflineTiles(plusCode, scale = 1):
+	var offlineNode = preload("res://PraxisMapper/FullOffline/FullSingleTile.tscn")
+	var offlineInst = offlineNode.instantiate()
+	add_child(offlineInst)
+	var texture = await offlineInst.GetAndProcessData(plusCode, scale)
+	remove_child(offlineInst)
+	return texture
 
 func DistanceDegreesToMetersLat(degrees):
 	return degrees * metersPerDegree

@@ -32,8 +32,13 @@ static func GetDataFromZip(plusCode): #full, drawable offline data.
 	var jsonData = json.data
 	if jsonData == null: #no file in this zip, this area is missing or empty.
 		return 
+	
+	var minVector = Vector2i(20000,20000)
+	var maxVector = Vector2i(0,0)
 	for category in jsonData.entries:
 		for entry in jsonData.entries[category]:
+			minVector = Vector2i(20000,20000)
+			maxVector = Vector2i(0,0)
 			#entry.p is a string of coords separated by a pipe in the text file.
 			#EX: 0,0|20,0|20,20|20,0|0,0 is a basic square.
 			var coords = entry.p.split("|", false)
@@ -42,7 +47,18 @@ static func GetDataFromZip(plusCode): #full, drawable offline data.
 				var point = coords[i].split(",")
 				var workVector = Vector2i(int(point[0]), int(point[1]))
 				polyCoords.append(workVector)
+				
+				if workVector.x > maxVector.x:
+					maxVector.x = workVector.x
+				if workVector.y > maxVector.y:
+					maxVector.y = workVector.y
+				if workVector.x < minVector.x:
+					minVector.x = workVector.x
+				if workVector.y < minVector.y:
+					minVector.y = workVector.y
+				
 			entry.p = polyCoords
+			entry.envelope = {min = minVector, max = maxVector}
 	
 	allData[plusCode] = jsonData
 	return jsonData

@@ -49,7 +49,13 @@ func GetAndProcessData(plusCode, scale = 1):
 		$svc3/SubViewport/boundsMap.style = await PraxisCore.GetStyle("adminBoundsFilled")
 	
 	mapData = await PraxisOfflineData.GetDataFromZip(plusCode6) 
-	$Banner/lblStatus.text = "Data Loaded. Processing, please wait...." 
+	if (mapData == null):
+		$Banner/lblStatus.text = "Error getting map data. Try again." 
+		return
+		
+	$Banner/lblStatus.text = "Data Loaded. Processing " + str(mapData.entries["mapTiles"].size()) + " items, please wait...." 
+	print("drawing " + str(mapData.entries["mapTiles"].size()) + " items")
+	await RenderingServer.frame_post_draw
 	#Game is probably going to freeze for a couple seconds here while Godot draws stuff to the node
 
 	print("being tile making")

@@ -69,7 +69,6 @@ theme = ExtResource("2_lhag6")
 text = "Load Detailed Scan Data"
 
 [node name="Button" type="Button" parent="."]
-visible = false
 offset_left = 770.0
 offset_top = 15.0
 offset_right = 1069.0

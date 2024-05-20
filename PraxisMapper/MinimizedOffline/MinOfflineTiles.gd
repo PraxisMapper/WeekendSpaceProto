@@ -15,6 +15,8 @@ func GetAndProcessData(pluscode6):
 	scaleVal = 1
 	await GetStyle()
 	mapData = await MinimizedOffline.GetDataFromZip(pluscode6)
+	if (mapData == null):
+		print("MapData is null, check for earlier errors.")
 	print("begin tile making for " + pluscode6)
 	await CreateAllTiles()
 	
@@ -23,16 +25,6 @@ func GetStyle():
 	$svc/SubViewport/fullMap.style = styleData
 	$svc2/SubViewport/nameMap.style = styleData
 	$svc3/SubViewport/terrainMap.style = styleData
-
-func GetData():
-	var locationData = FileAccess.open("user://Offline/Min/" + plusCode + ".json", FileAccess.READ)
-	if (locationData == null):
-		print("HEY DEV - minOffline failed to get data.")
-	else:
-		var json = JSON.new()
-		json.parse(locationData.get_as_text())
-		mapData = json.get_data()
-		locationData.close()
 
 func CreateAllTiles():
 	#This is Cell6 data drawn with Cell10 pixels, so each image is 400x400

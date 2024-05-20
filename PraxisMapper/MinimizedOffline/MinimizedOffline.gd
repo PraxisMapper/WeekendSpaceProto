@@ -9,6 +9,7 @@ static func GetDataFromZip(plusCode):
 	var code2 = plusCode.substr(0, 2)
 	var code4 = plusCode.substr(2, 2)        
 	
+	print("Getting data for " + plusCode)
 	if !FileAccess.file_exists("user://Data/Min/" + code2 + code4 + ".zip"):
 		var zipReaderA = ZIPReader.new()
 		var err = zipReaderA.open("res://OfflineData/Min/" + code2 + ".zip")
@@ -20,15 +21,24 @@ static func GetDataFromZip(plusCode):
 		var destFile = FileAccess.open("user://Data/Min/" + code2 + code4 + ".zip", FileAccess.WRITE)
 		destFile.store_buffer(innerFile)
 		destFile.close()
+	else:
+		print("zip file exists and is ready to go.")
 	
 	var zipReaderB = ZIPReader.new()
 	var err = zipReaderB.open("user://Data/Min/" + code2 + code4 + ".zip")
 	if (err != OK):
 		print("Read Error on " + code2 + code4 + ".zip: " + error_string(err))
 		return null
+	else:
+		print("zip file opened and ready to read.")
+	
 		
 	var rawdata := zipReaderB.read_file(plusCode + ".json")
+	if (rawdata != null):
+		print("raw data loaded")
 	var realData = rawdata.get_string_from_utf8()
+	print(realData.length())
+	print(realData)
 	var json = JSON.new()
 	json.parse(realData)
 	return json.data
