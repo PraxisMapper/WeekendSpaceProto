@@ -51,6 +51,9 @@ func _draw():  #DrawCell8(plusCode):
 	draw_colored_polygon(bgCoords, style["9999"].drawOps[0].color) 
 	var orderedDrawCommands = {}
 	
+	#FUTURE TODO: This is almost, but not quite, the correct draw order.
+	#For now, forcing points to be visible over the rest.
+	orderedDrawCommands[10] = [] #forced-point layer
 	for possibleDraw in style:
 		var pd = style[possibleDraw].drawOps
 		for do in pd:
@@ -74,14 +77,18 @@ func _draw():  #DrawCell8(plusCode):
 		var lineSize = 1.0 * scale
 	
 		for s in thisStyle.drawOps:
-			orderedDrawCommands[s.drawOrder].push_back({gt = entry.gt, p = entry.p, size = s.sizePx, color = s.color})
+			if entry.gt == 1: #points are getting forced to the top
+				orderedDrawCommands[10].push_back({gt = entry.gt, p = entry.p, size = s.sizePx, color = s.color})
+			else:
+				orderedDrawCommands[s.drawOrder].push_back({gt = entry.gt, p = entry.p, size = s.sizePx, color = s.color})
 		
 	var drawLevels = orderedDrawCommands.keys()
 	drawLevels.sort()
-	#drawLevels.reverse()
+	drawLevels.reverse() 
 	for entries in drawLevels:
 		#These items are sorted server-side when the JSON is created, don't re-order them again.
 		#orderedDrawCommands[entries].sort_custom(func(a,b) : return a.size > b.size)
+		#orderedDrawCommands[entries].reverse()
 
 		for odc in orderedDrawCommands[entries]:
 			var points = odc.p
@@ -95,7 +102,8 @@ func _draw():  #DrawCell8(plusCode):
 				#4.5 looks good for POIs, but bad for Trees, which there are quite a few of.
 				#trees are size 0.2, so I should probably make other elements larger?
 				#MOST of them shouldn't be points, but lines shouldn't be a Cell10 wide either.
-				await draw_circle(points[0], odc.size * 10.0 * scale, odc.color)
+				await draw_circle(points[0], odc.size * 5.0 * scale, odc.color)
+				await draw_arc(points[0],1 + odc.size * 5.0 * scale, 0, TAU, 17, Color.BLACK)
 			elif (odc.gt == 2):
 				#This is significantly faster than calling draw_line for each of these.
 				await draw_polyline(points, odc.color, odc.size * scale, true) #antialias display image only.

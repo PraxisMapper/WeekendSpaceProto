@@ -71,7 +71,7 @@ func _draw():
 				#4.5 looks good for POIs, but bad for Trees, which there are quite a few of.
 				#trees are size 0.2, so I should probably make other elements larger?
 				#MOST of them shouldn't be points, but lines shouldn't be a Cell10 wide either.
-				await draw_circle(points[0], odc.size * 10.0 * scale, odc.color)
+				await draw_circle(points[0], odc.size * 5.0 * scale, odc.color)
 			elif (odc.gt == 2):
 				#This is significantly faster than calling draw_line for each of these.
 				await draw_polyline(points, odc.color, odc.size * scale, true) #antialias display image only.

@@ -71,7 +71,7 @@ static func GetPlacesPresent(plusCode):
 	for category in data.entries:
 		for entry in data.entries[category]:
 			if entry.has("nid"):
-				if IsPointInPlace(point, entry, 10):
+				if IsPointInPlace(point, entry, 10, data.nameTable[str(entry.nid)]):
 					print("Found " + data.nameTable[str(entry.nid)] + " at " + plusCode)
 					results.push_back({ 
 						name  = data.nameTable[str(entry.nid)],
@@ -84,7 +84,7 @@ static func IsPlusCodeInPlace(plusCode, place):
 	var point = PlusCodeToDataCoords(plusCode)
 	return IsPointInPlace(point, place, plusCode.size())
 	
-static func IsPointInPlace(point, place, size):
+static func IsPointInPlace(point, place, size, name = "unnamed"):
 	#requires full drawing data. Minimized offline data is just a distance function vs the radius
 	#point is a Vector2, placePoly is a PackedVector2Array from PraxisCore.GetDataFromZip
 	
@@ -97,25 +97,34 @@ static func IsPointInPlace(point, place, size):
 	
 	#TODO: determine reasonable accuracy for this
 	#this is a good estimate on paper but requires testing.
-	var distanceCheck = 1 #cell10 distance
+	#OK SO THE ISSUE IS:
+	#Width-with on a Cell10 check, we should check 8 to handle half a Cell10. 
+	#Height-wise, we should check 13 instead. AND THERES THE PROBLEM.
+	#If we're 13 pixels away horizontally, that's a whole Cell10, and explains
+	#why vertical roads show up from 3 cells and horizontal roads 1.
+	#stupid non-square pixels. so do i shift those coords down to cell10 instead?
+	#This seems to work significantly better.
+	var distanceCheck = Vector2(16, 25) #cell10 distance?
 	if size == 11:
-		distanceCheck = 4
+		distanceCheck = Vector2(4, 5)
 	elif size == 12:
-		distanceCheck = 13
+		distanceCheck = Vector2(1,1)
 	
 	if place.gt == 1:
-		inside = (point.distance_to(place.p[0]) < distanceCheck) #Treat as inside within a Cell10 or so.
+		inside = (point.distance_to(place.p[0] / distanceCheck) < 1) #Treat as inside within a Cell10 or so.
+		#print("Point " + name + " is " + str(inside) + "(" + str(point.distance_to(place.p[0])) + ")")
 	elif place.gt == 2:
 		#Line. We do distance checking for speed/simplicity. 
 		#For a line A-B and point C, if distance(A, C) + distance(B,C) == distance(A,C)
 		#then it must be on that line. We can allow some variance to accommodate rounding on distances
 		#in PlusCodes.
+			
 		var placePoly = place.p
 		var prevCoordId = placePoly.size() - 1
 		for i in placePoly.size():
 			#CHeck if this line crosses our point's location
-			var thisCoord = placePoly[i]
-			var prevCoord = placePoly[prevCoordId]
+			var thisCoord = placePoly[i] / distanceCheck
+			var prevCoord = placePoly[prevCoordId] / distanceCheck
 			
 			if thisCoord == prevCoord:
 				if point == thisCoord:
@@ -123,20 +132,19 @@ static func IsPointInPlace(point, place, size):
 				continue
 
 			var pointDistances = point.distance_to(thisCoord) + point.distance_to(prevCoord)
-			var lineDistance = thisCoord.distance_to(prevCoord)
-			if abs((pointDistances - lineDistance)) < distanceCheck: 
-				#print(str((point.distance_to(thisCoord)) + point.distance_to(prevCoord)) + " = " +  str(thisCoord.distance_to(prevCoord)))
+			var lineDistance = (thisCoord).distance_to(prevCoord)
+			if abs(pointDistances - lineDistance) < 0.07: #still dialing in this estimate
+				print(str((point.distance_to(thisCoord)) + point.distance_to(prevCoord)) + " = " +  str(thisCoord.distance_to(prevCoord)))
 				return true #we dont have to keep checking this set of lines.
 				break
-			
 			prevCoordId = i
 	elif place.gt == 3:
 		var placePoly = place.p
 		var prevCoordId = placePoly.size() - 1
 		for i in placePoly.size():
 			#CHeck if this line crosses our point's location in a fairly complex way.
-			var thisCoord = placePoly[i]
-			var prevCoord = placePoly[prevCoordId]
+			var thisCoord = placePoly[i] / distanceCheck
+			var prevCoord = placePoly[prevCoordId] / distanceCheck
 			var intersect = ((thisCoord.y > point.y) != (prevCoord.y > point.y)) and \
 			(point.x < (prevCoord.x - thisCoord.x) * (point.y - thisCoord.y) / (prevCoord.y - thisCoord.y) + thisCoord.x) 
 			
@@ -150,7 +158,7 @@ static func PlusCodeToDataCoords(plusCode):
 	#This is the Cell10 coords, because we multiply the value by the cell12 pixels on the axis.
 	#TODO: check plusCode size and/or highPrecisionMode, adjust results.
 	plusCode = plusCode.replace("+", "")
-	var testPointY = (PlusCodes.GetLetterIndex(plusCode[6]) * 500) + (PlusCodes.GetLetterIndex(plusCode[8]) * 25)
-	var testPointX = (PlusCodes.GetLetterIndex(plusCode[7]) * 320) + (PlusCodes.GetLetterIndex(plusCode[9]) * 16)
-	var point = Vector2(testPointX, testPointY)
+	var testPointY = (PlusCodes.GetLetterIndex(plusCode[6]) * 500) + (PlusCodes.GetLetterIndex(plusCode[8]) * 25) + 3
+	var testPointX = (PlusCodes.GetLetterIndex(plusCode[7]) * 320) + (PlusCodes.GetLetterIndex(plusCode[9]) * 16) + 2
+	var point = Vector2(testPointX / 16, testPointY / 25)
 	return point

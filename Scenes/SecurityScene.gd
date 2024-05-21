@@ -9,7 +9,7 @@ func UpdateTotal(_cur, _old):
 		return
 		
 	var currentCell8 = _cur.substr(0,8)
-	if FileAccess.file_exists("user://MapTiles/" + currentCell8 + ".png"):
+	if FileAccess.file_exists("user://Data/Full/" + currentCell8.substr(0,4) + ".zip"):
 		$PatrolMap2.visible = true
 		$PatrolMap.visible = false
 		$LogoPadding.visible = false

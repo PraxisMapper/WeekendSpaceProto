@@ -11,7 +11,7 @@ var debugStartingPlusCode = "8FW4V75W25" #Eiffel Tower Garden, France
 #var debugStartingPlusCode = "8Q7XMQJ595" #Kokyo Kien National Garden, Tokyo, Japan
 #var debugStartingPlusCode = "8Q336FJCRV" #Peoples Park, Shanghai, China
 #var debugStartingPlusCode = "7JWVP5923M" #Shalimar Bagh, Delhi, India
-#var debugStartingPlusCode = "86HWGGGP22" #Ohio State University, Columbus, OH, USA
+#var debugStartingPlusCode = "86FRXXXPM8" #Ohio State University, Columbus, OH, USA
 
 #System global values
 #Resolution of PlusCode cells in degrees

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4iw1dedwfuh"]
+[gd_scene load_steps=4 format=3 uid="uid://b4iw1dedwfuh"]
 
 [ext_resource type="Script" path="res://Components/PatrolLog2.gd" id="1_jubrv"]
 [ext_resource type="Script" path="res://Components/CellTrackerDrawer.gd" id="2_kjlni"]
+[ext_resource type="PackedScene" uid="uid://b16445g8mkbaa" path="res://PraxisMapper/FullOffline/FullSingleTile.tscn" id="3_yyphd"]
 
 [node name="PatrolLog2" type="Node2D"]
 script = ExtResource("1_jubrv")
@@ -13,3 +14,5 @@ offset_bottom = 40.0
 [node name="cellTracker" type="Node2D" parent="."]
 script = ExtResource("2_kjlni")
 transparent = true
+
+[node name="TileDrawer" parent="." instance=ExtResource("3_yyphd")]

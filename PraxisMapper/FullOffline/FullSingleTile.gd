@@ -1,18 +1,10 @@
 extends Node2D
 class_name SingleTile
 
-#This is the refined version of drawing offline data. This will display status to
-#the user on-screen (with toggle to display or not), use toggles to determine which 
-#tiles are drawn, and indicate via on-screen banner what the current status is on image
-#drawing progress (drawing tile, saving tiles by code, etc)
-#This will also assume the data is already present for now, and skip downloading it from
-#a server.
-
-signal style_saved()
-signal style_ready()
-signal data_saved()
-signal data_ready()
-signal tiles_saved()
+#Single Cell8 drawing from Cell6 data. 
+#Should not be so slow as to need user status displays.
+#Should not need multiple tiles for full-detail data, since it can be
+#checked directly now.
 
 signal tile_created(texture)
 
@@ -27,9 +19,15 @@ var mapData
 @export var makeBoundsTile = false
 @export var makeThumbnail = false
 @export var thumbnailScale = 0.08
+@export var alwaysDrawNewTile = true
 
 #Get a Cell8 PlusCode, draw just that tile.
 func GetAndProcessData(plusCode, scale = 1):
+	#save some time
+	if FileAccess.file_exists("user://MapTiles/" + plusCode + ".png") and !alwaysDrawNewTile:
+		tile_created.emit(ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + plusCode + ".png")))
+		return
+	
 	var oneTile = null
 	#$Banner.visible = true
 	#$Banner/lblStatus.text = "Preparing to draw...."
@@ -163,5 +161,4 @@ func CreateTile(oneTile = null):
 			tile_created.emit(tex1) #Exclusive logic to this prototype.
 	
 	print("Texture created")
-	tiles_saved.emit()
 	return tex1
