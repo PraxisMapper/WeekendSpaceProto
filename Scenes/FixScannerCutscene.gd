@@ -66,6 +66,8 @@ func Start():
 
 func MakeTiles():
 	SetStressedConsole()
+	#TODO: replace this node with one that creates a single tile 400 times,
+	#looping through the code alphabet on each axis. It's the least rework.
 	await $OfflineData.GetAndProcessData(plusCode.substr(0,6))
 	FlipToThumbnail()
 	#$btnExit.visible = true #TODO: hide button until complete or error?

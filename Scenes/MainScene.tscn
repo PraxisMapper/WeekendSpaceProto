@@ -61,3 +61,10 @@ offset_right = 625.0
 offset_bottom = 208.0
 pivot_offset = Vector2(64, 64)
 texture = ExtResource("10_g67b8")
+
+[node name="lblAcc" type="Label" parent="."]
+offset_left = 676.0
+offset_top = 71.0
+offset_right = 754.0
+offset_bottom = 94.0
+text = "Accuracy: "

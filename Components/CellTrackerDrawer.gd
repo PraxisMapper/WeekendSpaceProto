@@ -54,9 +54,19 @@ func _draw():
 	
 	if (PraxisCore.currentPlusCode.begins_with(plusCode8)):
 		var code = PraxisCore.currentPlusCode.replace("+", "")
+		
 		var yCoord = PlusCodes.GetLetterIndex(code[8])
 		var xCoord = PlusCodes.GetLetterIndex(code[9])
-		draw_rect(Rect2(xCoord, 19 - yCoord, 1, 1), colorIndicator)
+		
+		#Test code
+		#code += "2"
+		
+		if code.length() == 11:
+			yCoord -= (0.8 -(0.20 * (int(PlusCodes.GetLetterIndex(code[10]) / 4))))
+			xCoord += (0.25 * (PlusCodes.GetLetterIndex(code[10]) % 4))
+			draw_rect(Rect2(xCoord, 19 - yCoord, 0.25, 0.2), colorIndicator)
+		else:
+			draw_rect(Rect2(xCoord, 19 - yCoord, 1, 1), colorIndicator)
 
 func _process(delta):
 	timeToSwitch += delta
