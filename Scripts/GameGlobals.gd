@@ -228,7 +228,6 @@ func UpdateSideQuests(current):
 	#skipping ones we're already eligible for or started.
 	for quest in sideQuests:
 		if gameData.sideQuestsComplete.find(quest) > -1 or gameData.sideQuestsEligible.find(quest) > -1:
-			print("quest " + quest + " already eligible/completed")
 			continue
 		
 		var thisQuest = sideQuests[quest]
@@ -239,7 +238,6 @@ func UpdateSideQuests(current):
 			#this doesnt show up until you've gotten so far in the main quest.
 			var step = int(req.replace("MainQuest:", ""))
 			if gameData.plotProgress >= step:
-				print("adding side quest " + quest + " to eligible list")
 				gameData.sideQuestsEligible.push_back(quest)
 			
 	#for each active side quest, check what their progress requirement is

@@ -26,14 +26,14 @@ var plusCode = ''
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
-	
 	plusCode = PraxisCore.currentPlusCode #default behavior
 	#plusCode = "8FW4V75W25" # force-testing certain locations (Paris)
 	#FlipToThumbnail() #testing the last part.
 	
 	SetBusyGauges()
 	$GetFile.file_downloaded.connect(MakeTiles)
-	$OfflineData.tile_created.connect(ShowEachTile)
+	#$OfflineData.tile_created.connect(ShowEachTile)
+	$FullSingleTile.tile_created.connect(ShowEachTile)
 	Start()
 	#SetIdleGauges()
 	#await get_tree().create_timer(3).timeout
@@ -54,6 +54,7 @@ func Start():
 	$MinDataOverlay/TextureRect.texture = tex1
 	$MinDataOverlay/TextureRect.scale = Vector2(2.1, 3.45) #fill the square new data will be in
 	
+	$FullDataOverlay/TextureRect.texture = tex1
 	$FullDataOverlay/TextureRect.scale = Vector2(2.65, 2.75)
 	#TODO: show first cutscene, when over call this
 	SetHighGauges()
@@ -68,13 +69,39 @@ func MakeTiles():
 	SetStressedConsole()
 	#TODO: replace this node with one that creates a single tile 400 times,
 	#looping through the code alphabet on each axis. It's the least rework.
-	await $OfflineData.GetAndProcessData(plusCode.substr(0,6))
-	FlipToThumbnail()
+	for x in PlusCodes.CODE_ALPHABET_:
+		for y in PlusCodes.CODE_ALPHABET_:
+			await $FullSingleTile.GetAndProcessData(plusCode.substr(0,6) + x + y)
+			#$FullDataOverlay/TextureRect.texture.update(newTex.get_image())
+			#$FullDataOverlay/TextureRect.texture = newTex
+			$lblBanner.text = "Processed " + plusCode.substr(0,6) + x + y
+			#await get_tree().create_timer(1).timeout
+	#FlipToThumbnail()
 	#$btnExit.visible = true #TODO: hide button until complete or error?
 	
+var calls = 0
 func ShowEachTile(newTile):
-	$FullDataOverlay/TextureRect.texture = newTile #ImageTexture.create_from_image(newTile)
-	
+	#$FullSingleTile.tile_created.disconnect(ShowEachTile)
+	#if currentDispOverlay == $FullDataOverlay:
+	#NOTE: when this was just the texture, that was live from the viewport. 
+	#using the image here is static, and won't automatically update or blink.
+	if calls == 0:
+		$FullDataOverlay/TextureRect.texture.set_image(newTile) #ImageTexture.create_from_image(newTile)
+	else:
+		$FullDataOverlay/TextureRect.texture.update(newTile) #ImageTexture.create_from_image(newTile)
+	#	await RenderingServer.frame_post_draw
+	#	$FullDataOverlay2.visible = true
+	#	$FullDataOverlay.visible = false
+		
+		#currentDispOverlay = $FullDataOverlay2
+	#else:
+		#$FullDataOverlay/TextureRect.texture = newTile #ImageTexture.create_from_image(newTile)
+		#await RenderingServer.frame_post_draw
+		#$FullDataOverlay2.visible = false
+		#$FullDataOverlay.visible = true
+		#await RenderingServer.frame_post_draw
+		#currentDispOverlay = $FullDataOverlay
+		
 
 func FlipToThumbnail():
 	var tex2 = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + plusCode.substr(0,6) + "-thumb.png"))

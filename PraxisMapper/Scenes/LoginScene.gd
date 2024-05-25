@@ -69,8 +69,7 @@ func createCompleted(result):
 	var json = JSON.new()
 	json.parse(result.get_string_from_utf8())
 	var data = json.get_data()
-	print(data)
-	if (data == true): #
+	if (data == true): 
 		_on_btn_login_pressed()
 	else:
 		lblError.text = "Account creation failed."

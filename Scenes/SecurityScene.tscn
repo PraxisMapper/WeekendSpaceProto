@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1bckdbxcwv0d"]
+[gd_scene load_steps=7 format=3 uid="uid://b1bckdbxcwv0d"]
 
 [ext_resource type="Script" path="res://Scenes/SecurityScene.gd" id="1_trdwt"]
 [ext_resource type="PackedScene" uid="uid://cv6not5nijbvw" path="res://Scenes/PatrolMap.tscn" id="1_ywgle"]
 [ext_resource type="Theme" uid="uid://qpjfkm1dnyec" path="res://Resources/baseTheme.tres" id="2_lhag6"]
 [ext_resource type="PackedScene" uid="uid://b4iw1dedwfuh" path="res://Components/PatrolLog2.tscn" id="4_mer8s"]
 [ext_resource type="Texture2D" uid="uid://k8ue3jveqnhc" path="res://Resources/titleimage.png" id="5_5fjt6"]
+[ext_resource type="PackedScene" uid="uid://ygh6fmdrxjlk" path="res://Components/GetFile.tscn" id="6_x4kgs"]
 
 [node name="SecurityScene" type="Node2D"]
 script = ExtResource("1_trdwt")
@@ -68,13 +69,14 @@ offset_bottom = 86.0
 theme = ExtResource("2_lhag6")
 text = "Load Detailed Scan Data"
 
-[node name="Button" type="Button" parent="."]
+[node name="btnDownload" type="Button" parent="."]
+visible = false
 offset_left = 770.0
 offset_top = 15.0
 offset_right = 1069.0
 offset_bottom = 50.0
 theme = ExtResource("2_lhag6")
-text = "Force-download map data"
+text = "Download map data"
 
 [node name="lblAllPlaces" type="Label" parent="."]
 visible = false
@@ -85,5 +87,7 @@ offset_bottom = 242.0
 theme = ExtResource("2_lhag6")
 text = "Places:"
 
+[node name="GetFile" parent="." instance=ExtResource("6_x4kgs")]
+
 [connection signal="pressed" from="btnLoadData" to="." method="LoadScanData"]
-[connection signal="pressed" from="Button" to="." method="LoadScanData"]
+[connection signal="pressed" from="btnDownload" to="." method="LoadScanData"]

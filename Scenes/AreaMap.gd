@@ -13,7 +13,6 @@ func _ready():
 	#These are always Cell6 sized, so I dont need to calculate that. Just need to know my latitude
 	var distHorizontal = PraxisCore.DistanceDegreesToMetersLon(PraxisCore.resolutionCell6, swCorner.y)
 	var distVertical = PraxisCore.DistanceDegreesToMetersLat(PraxisCore.resolutionCell6)
-	print("area size: " + str(distHorizontal) + " x " + str(distVertical))
 	var scale = "Scale:\n"
 	scale += str(snapped(distHorizontal / 1000, 0.1)) + "x " + str(snapped(distVertical / 1000, 0.1)) + "km\n"
 	scale += str(snapped(distHorizontal * 3.281 / 5280, 0.1)) + "x " + str(snapped(distVertical * 3.281 / 5280, 0.1)) + "mi\n"

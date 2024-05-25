@@ -8,6 +8,7 @@ func UpdateTotal(_cur, _old):
 	if _cur == null:
 		return
 		
+	
 	var currentCell8 = _cur.substr(0,8)
 	if FileAccess.file_exists("user://Data/Full/" + currentCell8.substr(0,4) + ".zip"):
 		$PatrolMap2.visible = true
@@ -27,13 +28,15 @@ func UpdateTotal(_cur, _old):
 		$LogoPadding.visible = true
 		$lblAllPlaces.visible = false
 		#if GameGlobals.gameData.sideQuestsComplete.find("FixScanner") > -1 or GameGlobals.debug == true:
-		print(str(GameGlobals.gameData.plotProgress))
-		if GameGlobals.gameData.plotProgress >= 1:
-			$btnLoadData.visible = true
+		#if GameGlobals.gameData.plotProgress >= 1:
+		$btnLoadData.visible = true
 
 func _ready():
 	GameGlobals.pluscode_changed.connect(UpdateTotal)
-	UpdateTotal(null, null)
+	UpdateTotal(PraxisCore.currentPlusCode, null)
+	
+func LoadData2():
+	$GetFile.getFile(PraxisCore.currentPlusCode.substr(0,4))
 
 func LoadScanData():
 	get_tree().change_scene_to_file("res://Scenes/FixScannerCutscene.tscn")

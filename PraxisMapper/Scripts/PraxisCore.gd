@@ -77,8 +77,6 @@ func on_monitoring_location_result(location: Dictionary) -> void:
 		print("new plusCode: " + plusCode)
 		
 func perm_check(permName, wasGranted):
-	print("permissions: " + permName)
-	print(wasGranted)
 	if permName == "android.permission.ACCESS_FINE_LOCATION" and wasGranted == true:
 		print("enabling GPS")
 		gps_provider.onLocationUpdates.connect(on_monitoring_location_result)

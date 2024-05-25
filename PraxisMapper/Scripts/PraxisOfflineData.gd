@@ -72,7 +72,7 @@ static func GetPlacesPresent(plusCode):
 		for entry in data.entries[category]:
 			if entry.has("nid"):
 				if IsPointInPlace(point, entry, 10, data.nameTable[str(entry.nid)]):
-					print("Found " + data.nameTable[str(entry.nid)] + " at " + plusCode)
+					#print("Found " + data.nameTable[str(entry.nid)] + " at " + plusCode)
 					results.push_back({ 
 						name  = data.nameTable[str(entry.nid)],
 						category = category,
@@ -134,7 +134,7 @@ static func IsPointInPlace(point, place, size, name = "unnamed"):
 			var pointDistances = point.distance_to(thisCoord) + point.distance_to(prevCoord)
 			var lineDistance = (thisCoord).distance_to(prevCoord)
 			if abs(pointDistances - lineDistance) < 0.07: #still dialing in this estimate
-				print(str((point.distance_to(thisCoord)) + point.distance_to(prevCoord)) + " = " +  str(thisCoord.distance_to(prevCoord)))
+				#print(str((point.distance_to(thisCoord)) + point.distance_to(prevCoord)) + " = " +  str(thisCoord.distance_to(prevCoord)))
 				return true #we dont have to keep checking this set of lines.
 				break
 			prevCoordId = i

@@ -24,4 +24,7 @@ func plusCodeChanged(cur, _old):
 		$TileDrawer.GetAndProcessData(cur.substr(0,8))
 		
 func OnTileDrawn(texture):
-	$trMapTile.texture = texture
+	if $trMapTile.texture == null:
+		$trMapTile.texture = ImageTexture.create_from_image(texture)
+	else:
+		$trMapTile.texture.update(texture)

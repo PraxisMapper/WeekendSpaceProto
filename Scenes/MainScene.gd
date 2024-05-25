@@ -22,6 +22,9 @@ func _ready():
 	#Force the first story/tutorial dialog to appear on first start.
 	if (GameGlobals.gameData.plotProgress == -1):
 		$scroll/vbox/OrdersScene.CompleteOrder()
+		
+	if PraxisCore.currentPlusCode != "":
+		on_pluscode_changed(PraxisCore.currentPlusCode, PraxisCore.lastPlusCode)
 
 func on_pluscode_changed(currentPlusCode, previousPlusCode):
 	$scroll/vbox/MainHeader/lblCoords.text = currentPlusCode
@@ -38,7 +41,7 @@ func on_pluscode_changed(currentPlusCode, previousPlusCode):
 		$scroll/vbox/MainHeader/lblPlace.text = placeData[0]
 		place_changed.emit(placeData[0])
 	
-	$lblAcc.text = PraxisCore.last_location.accuracy
+	#$lblAcc.text = PraxisCore.last_location.accuracy
 	
 	#TEST code
 	#currentPlusCode += "2"

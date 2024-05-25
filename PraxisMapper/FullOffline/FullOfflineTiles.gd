@@ -54,7 +54,6 @@ func GetAndProcessData(plusCode, scale = 1):
 		return
 		
 	$Banner/lblStatus.text = "Data Loaded. Processing " + str(mapData.entries["mapTiles"].size()) + " items, please wait...." 
-	print("drawing " + str(mapData.entries["mapTiles"].size()) + " items")
 	await RenderingServer.frame_post_draw
 	#Game is probably going to freeze for a couple seconds here while Godot draws stuff to the node
 

@@ -25,7 +25,8 @@ var mapData
 func GetAndProcessData(plusCode, scale = 1):
 	#save some time
 	if FileAccess.file_exists("user://MapTiles/" + plusCode + ".png") and !alwaysDrawNewTile:
-		tile_created.emit(ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + plusCode + ".png")))
+		var tex = await ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + plusCode + ".png"))
+		tile_created.emit(tex)
 		return
 	
 	var oneTile = null
@@ -53,7 +54,6 @@ func GetAndProcessData(plusCode, scale = 1):
 		return
 		
 	#$Banner/lblStatus.text = "Data Loaded. Processing " + str(mapData.entries["mapTiles"].size()) + " items, please wait...." 
-	print("drawing " + str(mapData.entries["mapTiles"].size()) + " items")
 	await RenderingServer.frame_post_draw
 	#Game is probably going to freeze for a couple seconds here while Godot draws stuff to the node
 
@@ -130,6 +130,7 @@ func CreateTile(oneTile = null):
 		yList = oneTile[0]
 
 	var tex1
+	var img1
 	for yChar in yList:
 		#This kept complaining about can't - a Vector2 and an Int so I had to do this.
 		var yPos = ((PlusCodes.CODE_ALPHABET_.find(yChar) +1) * 500 * scale)
@@ -146,7 +147,7 @@ func CreateTile(oneTile = null):
 			await RenderingServer.frame_post_draw
 			if makeMapTile == true:
 				tex1 = await viewport1.get_texture()
-				var img1 = tex1.get_image() # Get rendered image
+				img1 = await tex1.get_image() # Get rendered image
 				await img1.save_png("user://MapTiles/" + plusCode6 + yChar + xChar + ".png") # Save to disk
 			#if makeNameTile == true:
 				#var img2 = await viewport2.get_texture().get_image() # Get rendered image
@@ -158,7 +159,7 @@ func CreateTile(oneTile = null):
 				#var img4 = await viewport4.get_texture().get_image() # Get rendered image
 				#$await img4.save_png("user://TerrainTiles/" + plusCode6 + yChar + xChar + ".png") # Save to disk
 			#$Banner/lblStatus.text = "Saved Tiles for " + plusCode6 + yChar + xChar
-			tile_created.emit(tex1) #Exclusive logic to this prototype.
+	tile_created.emit(img1) #Exclusive logic to this prototype.
 	
 	print("Texture created")
 	return tex1
