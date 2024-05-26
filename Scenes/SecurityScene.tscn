@@ -89,5 +89,5 @@ text = "Places:"
 
 [node name="GetFile" parent="." instance=ExtResource("6_x4kgs")]
 
-[connection signal="pressed" from="btnLoadData" to="." method="LoadScanData"]
+[connection signal="pressed" from="btnLoadData" to="." method="LoadData2"]
 [connection signal="pressed" from="btnDownload" to="." method="LoadScanData"]

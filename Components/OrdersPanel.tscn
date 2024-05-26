@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://mec5wqbebbnw"]
+[gd_scene load_steps=6 format=3 uid="uid://mec5wqbebbnw"]
 
 [ext_resource type="Script" path="res://Components/OrdersPanel.gd" id="1_bi02l"]
 [ext_resource type="Theme" uid="uid://qpjfkm1dnyec" path="res://Resources/baseTheme.tres" id="2_jenoa"]
 [ext_resource type="Script" path="res://Scripts/AreaScanner.gd" id="3_2rp02"]
+[ext_resource type="Script" path="res://PraxisMapper/FullOffline/FullAreaScanner.gd" id="4_b86r6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2hpp"]
 bg_color = Color(0.145098, 0.713726, 0.376471, 1)
@@ -117,6 +118,9 @@ theme_override_font_sizes/font_size = 26
 
 [node name="AreaScanner" type="Node2D" parent="."]
 script = ExtResource("3_2rp02")
+
+[node name="FullAreaScanner" type="Node2D" parent="."]
+script = ExtResource("4_b86r6")
 
 [connection signal="pressed" from="btnPickNew" to="." method="ChangePlace"]
 [connection signal="pressed" from="btnAddToIgnore" to="." method="IgnorePlace"]

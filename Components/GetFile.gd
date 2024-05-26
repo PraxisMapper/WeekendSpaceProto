@@ -28,6 +28,7 @@ func getFile(plusCode4):
 		return
 	isActive = true
 	$Banner.visible = true
+	return true
 
 func request_complete(result, response_code, headers, body):
 	isActive = false

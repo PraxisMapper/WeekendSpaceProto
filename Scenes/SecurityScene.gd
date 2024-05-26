@@ -35,9 +35,15 @@ func _ready():
 	GameGlobals.pluscode_changed.connect(UpdateTotal)
 	UpdateTotal(PraxisCore.currentPlusCode, null)
 	
+	#New plan is to just let you download data and draw each tile individually
 func LoadData2():
 	$GetFile.getFile(PraxisCore.currentPlusCode.substr(0,4))
+	await $GetFile.file_downloaded
+	$PatrolMap2.plusCodeChanged(PraxisCore.currentPlusCode, null) #draw this tile
+	UpdateTotal(PraxisCore.currentPlusCode, null)
 
+#The original plan was to have this scene generate each Cell8 in the Cell6
+#at once. This doesn't work reliably in places with over 10k map elements though
 func LoadScanData():
 	get_tree().change_scene_to_file("res://Scenes/FixScannerCutscene.tscn")
 	#Return to the cutscene to load data for this Cell6

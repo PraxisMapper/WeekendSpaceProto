@@ -10,16 +10,17 @@ script = ExtResource("1_ocpng")
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Banner"]
-offset_right = 994.0
+offset_right = 1080.0
 offset_bottom = 40.0
 color = Color(1, 0.521569, 0.145098, 1)
 
 [node name="Label" type="Label" parent="Banner"]
-offset_left = 380.0
-offset_top = 7.0
-offset_right = 551.0
-offset_bottom = 34.0
+offset_left = 7.0
+offset_top = 9.0
+offset_right = 1080.0
+offset_bottom = 36.0
 theme = ExtResource("2_isb0s")
 text = "Downloading...."
+horizontal_alignment = 1
 
 [node name="client" type="HTTPRequest" parent="."]

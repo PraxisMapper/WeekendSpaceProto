@@ -1,4 +1,6 @@
 extends Node2D
+#TODO?: make this read the full detailed data if its available, instead of
+#only using minimized offline data. This might be enough to throw to a future project.
 
 var orderArray = [
 	"Patrol_125", #approximately a mile. #Story1
@@ -42,7 +44,11 @@ func ChangePlace():
 	if (orderParts[0] == "FreePlay" and randi() % 4 == 0):
 		condition = "far"
 	var terrainId = int(condition)
-	var newPlace = $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainId, condition)
+	var newPlace = {}
+	if FileAccess.file_exists("user://Data/Full/" + PraxisCore.currentPlusCode.substr(0,4) + ".zip"):
+		newPlace = $FullAreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), "mapTiles", terrainId, condition)
+	else:
+		newPlace = $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainId, condition)
 	if newPlace == null:
 		return
 	
@@ -122,7 +128,13 @@ func GetOrder():
 		order.newPlaceVisited = false
 		var terrainType = int(parts[1])
 		
-		var place = $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainType, parts[1])
+		var place = {}
+		if FileAccess.file_exists("user://Data/Full/" + PraxisCore.currentPlusCode.substr(0,4) + ".zip"):
+			#TODO: make sure this works the same as the original. parts[1] might be different?
+			place = $FullAreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), "mapTiles", terrainType, parts[1])
+		else:
+			place = $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainType, parts[1])
+		
 		if place == null:
 			print("No place found!") #PickPlace shows the error dialog.
 			GameGlobals.gameData.plotProgress -= 1
