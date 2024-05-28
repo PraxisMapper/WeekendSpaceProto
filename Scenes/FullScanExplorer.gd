@@ -66,7 +66,7 @@ func GetAreaInfo():
 		else:
 			countDict[place.type] = 1
 		if place.has("name"):
-			var display = "[b]" + place.name + "[/b] [" + place.type + ", " + place.center + "]\n"
+			var display = "[b]" + place.name + "[/b] [" + place.type + ", " + place.area + "]\n"
 			#OK, since this has retail entries, we'll allow dupes on the list.
 			if $chkDupes.button_pressed or !names.contains("[b]" + place.name + "[/b] [" + place.type):
 				names += display

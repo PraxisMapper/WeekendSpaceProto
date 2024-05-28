@@ -33,7 +33,6 @@ func on_pluscode_changed(currentPlusCode, previousPlusCode):
 		await $MinOfflineData.GetAndProcessData(currentPlusCode.substr(0,6))
 		
 	var currentPlace = GameGlobals.currentPlaceName
-	#TODO: if we have full drawable data, check that instead of minimized data
 	var placeData = $PlaceTracker.CheckForPlace(currentPlusCode)
 	
 	if (placeData[0] != currentPlace):
@@ -41,12 +40,7 @@ func on_pluscode_changed(currentPlusCode, previousPlusCode):
 		$scroll/vbox/MainHeader/lblPlace.text = placeData[0]
 		place_changed.emit(placeData[0])
 	
-	#$lblAcc.text = PraxisCore.last_location.accuracy
-	
-	#TEST code
-	#currentPlusCode += "2"
 	pluscode_changed.emit(currentPlusCode, previousPlusCode)
-	
 
 func on_place_changed(newPlace):
 	$scroll/vbox/MainHeader/lblPlace.text = newPlace

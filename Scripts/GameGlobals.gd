@@ -42,6 +42,7 @@ var gameOptions = {
 	suggestHistorical = true,
 	suggestArtsCulture = true,
 	suggestCemeteries = true,
+	serverUrl = defaultServerUrl
 }
 
 #NOTE: a lot of these are here from planned full-game ideas, not prototype execution.
@@ -72,7 +73,6 @@ var gameData = {
 	sideQuestsInProgress = {}, #TODO: potential nonlinear mission structure.
 	sideQuestsEligible = [], #just names, but quit checking on these ones.
 	sideQuestsComplete = [], #just names
-	serverUrl = defaultServerUrl
 	
 	#key is quest name/id, values are progressSteps. 
 }
@@ -162,6 +162,9 @@ func LoadOptions():
 		json.parse(localOptions.get_as_text())
 		gameOptions = json.get_data()
 		localOptions.close()
+	
+	if gameOptions.serverUrl == null:
+		gameOptions.serverUrl = defaultServerUrl
 		
 func LoadIgnoreList():
 	var localIgnore = FileAccess.open("user://Data/Ignored.json", FileAccess.READ)
@@ -214,7 +217,6 @@ func LoadGame():
 			gameData.sideQuestsComplete = []
 			gameData.sideQuestsEligible = []
 			gameData.saveDataVersion = 2
-			gameData.serverUrl = defaultServerUrl
 			SaveGame()
 
 #Skipping side quest logic for now, in favor of shipping this working instead.

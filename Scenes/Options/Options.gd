@@ -8,6 +8,7 @@ func _ready():
 	$chkNatureReserve.button_pressed = GameGlobals.gameOptions.suggestNatureReserves
 	$chkPark.button_pressed = GameGlobals.gameOptions.suggestParks
 	$chkUniversity.button_pressed = GameGlobals.gameOptions.suggestUniversities
+	$txtServer.text = GameGlobals.gameData.serverUrl
 	
 func UpdateArtsCulture(newState):
 	GameGlobals.gameOptions.suggestArtsCulture = newState
@@ -41,11 +42,11 @@ func UpdateBatterySaver(newState):
 		Engine.max_fps = 60
 
 func UpdateServer(newServer):
-	GameGlobals.gameData.serverUrl = newServer
+	GameGlobals.gameOptions.serverUrl = newServer
 	GameGlobals.SaveGame()
 	
 func ResetServer():
-	GameGlobals.gameData.serverUrl = GameGlobals.defaultServerUrl
+	GameGlobals.gameOptions.serverUrl = GameGlobals.defaultServerUrl
 	GameGlobals.SaveGame()
 
 func Close():

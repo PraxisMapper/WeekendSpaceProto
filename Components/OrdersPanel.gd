@@ -1,6 +1,9 @@
 extends Node2D
 #TODO?: make this read the full detailed data if its available, instead of
 #only using minimized offline data. This might be enough to throw to a future project.
+#KNOWN: this doesn't filter down to the gameplay viable places yet. I'll have to
+#work out how to cherry-pick those and convert from suggestedMini values to 
+#mapTiles values.
 
 var orderArray = [
 	"Patrol_125", #approximately a mile. #Story1
@@ -23,8 +26,11 @@ func UpdateScreen(_cur, _old):
 	var isPlaceMission = GameGlobals.gameData.currentOrder.type.begins_with("NewPlace") or GameGlobals.gameData.currentOrder.type.begins_with("FreePlay")
 	var showTargetDest = GameGlobals.gameData.currentOrder.type.begins_with("NewPlace") or GameGlobals.gameData.currentOrder.type.begins_with("WaitPlace")  or GameGlobals.gameData.currentOrder.type.begins_with("FreePlay")
 	$lblOrders.text = GameGlobals.gameData.currentOrder.text
-	$lblTargetSector.text = GameGlobals.gameData.currentOrder.place.area
-	$lblDistance.text = GetDistAndDirection(PraxisCore.currentPlusCode, GameGlobals.gameData.currentOrder.place.area)
+	print($lblOrders.text)
+	print(GameGlobals.gameData.currentOrder.place.name)
+	if GameGlobals.gameData.currentOrder.place.has("area"):
+		$lblTargetSector.text = GameGlobals.gameData.currentOrder.place.area
+		$lblDistance.text = GetDistAndDirection(PraxisCore.currentPlusCode, GameGlobals.gameData.currentOrder.place.area)
 	$lblTSHeader.visible = showTargetDest
 	$lblDistHeader.visible = showTargetDest
 	$lblTargetSector.visible = showTargetDest
@@ -88,7 +94,10 @@ func CompleteOrder():
 		Dialogic.VAR.parentPlace = ""
 	Dialogic.VAR.totalSectorCount100 = floor(GameGlobals.cellTracker.visited.size() / 100)
 	Dialogic.VAR.totalSectorCountStr = str(GameGlobals.cellTracker.visited.size())
-	Dialogic.VAR.missionPlusCode = GameGlobals.gameData.currentOrder.place.area
+	if GameGlobals.gameData.currentOrder.place.has("area"):
+		Dialogic.VAR.missionPlusCode = GameGlobals.gameData.currentOrder.place.area
+	else:
+		Dialogic.VAR.missionPlusCode = ""
 	GameGlobals.SaveGame()
 	
 	var storyName = "Story" + str(GameGlobals.gameData.plotProgress + 1)
@@ -179,6 +188,7 @@ func IsOrderComplete():
 	elif GameGlobals.gameData.currentOrder.type.begins_with("Wait"):
 		return GameGlobals.gameData.currentOrder.endTime <= Time.get_unix_time_from_system()
 	elif GameGlobals.gameData.currentOrder.type.begins_with("NewPlace"):
+		print("|" + GameGlobals.currentPlaceName + "| vs |" + GameGlobals.gameData.currentOrder.place.name + "|")
 		return GameGlobals.currentPlaceName == GameGlobals.gameData.currentOrder.place.name
 	elif GameGlobals.gameData.currentOrder.type.begins_with("Science"):
 		#this needs to wait until Science code is set up.

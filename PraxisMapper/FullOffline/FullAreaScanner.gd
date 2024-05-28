@@ -86,7 +86,7 @@ func ReadPlaces(plusCode, category, terrainID, requirements, options = [], ignor
 			yCode8 = 19
 		
 		var centerCode = plusCode + PlusCodes.CODE_ALPHABET_[yCode8]+ PlusCodes.CODE_ALPHABET_[xCode8] + "+" + PlusCodes.CODE_ALPHABET_[yCode10]+ PlusCodes.CODE_ALPHABET_[xCode10]
-		reportedData.center = centerCode
+		reportedData.area = centerCode #was center, but that doesn't line up with minimized data.
 		possiblePlaces.push_back(reportedData)
 	
 	return possiblePlaces

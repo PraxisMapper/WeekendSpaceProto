@@ -89,7 +89,7 @@ offset_bottom = 175.0
 theme = ExtResource("2_q863e")
 text = "Server for drawable tile data:"
 
-[node name="LineEdit" type="LineEdit" parent="."]
+[node name="txtServer" type="LineEdit" parent="."]
 offset_left = 622.0
 offset_top = 141.0
 offset_right = 997.0
@@ -110,3 +110,4 @@ text = "Reset to Default Server"
 [connection signal="toggled" from="chkHistorical" to="." method="UpdateHistorical"]
 [connection signal="toggled" from="chkArtsCulture" to="." method="UpdateArtsCulture"]
 [connection signal="pressed" from="btnClose" to="." method="Close"]
+[connection signal="text_changed" from="txtServer" to="." method="UpdateServer"]

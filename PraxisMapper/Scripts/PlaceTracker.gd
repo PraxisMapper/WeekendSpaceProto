@@ -142,7 +142,7 @@ func CheckForPlaceFull(plusCode10):
 		return [""]
 		
 	var smallest = data.back()
-	return smallest.split("|")
+	return smallest.split("|") #if split, doesnt updateCurrentPlace?
 
 func GetDataOnPointFull(plusCode10):
 	var results = []
