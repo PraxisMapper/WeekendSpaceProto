@@ -188,7 +188,8 @@ func IsOrderComplete():
 	elif GameGlobals.gameData.currentOrder.type.begins_with("Wait"):
 		return GameGlobals.gameData.currentOrder.endTime <= Time.get_unix_time_from_system()
 	elif GameGlobals.gameData.currentOrder.type.begins_with("NewPlace"):
-		print("|" + GameGlobals.currentPlaceName + "| vs |" + GameGlobals.gameData.currentOrder.place.name + "|")
+		if GameGlobals.currentPlaceName != null:
+			print("|" + GameGlobals.currentPlaceName + "| vs |" + GameGlobals.gameData.currentOrder.place.name + "|")
 		return GameGlobals.currentPlaceName == GameGlobals.gameData.currentOrder.place.name
 	elif GameGlobals.gameData.currentOrder.type.begins_with("Science"):
 		#this needs to wait until Science code is set up.

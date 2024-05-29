@@ -57,10 +57,29 @@ func ReadPlaces(plusCode, category, terrainID, requirements, options = [], ignor
 		reportedData.type = styleData[str(place.tid)].name
 		
 		#Estimate center. For horseshoe-shaped places, this will often not actually be in-bounds.
+		#TODO: this appears to still be off somewhat. Need to work out why.
 		var centerVector = Vector2i(0,0)
 		if place.p.size() == 1:
+			print("Point")
 			centerVector = Vector2i(place.p[0])
+		#TODO: for lines, maybe this should be the center point or avg of 2 center points?
+		elif place.p[0] != place.p[place.p.size() - 1]:
+			print(place.p[0])
+			print(place.p[place.p.size() - 1])
+			var i = place.p.size() / 2
+			if place.p.size() == 2: #special case
+				centerVector = Vector2i(place.p[0])
+				centerVector += Vector2i(place.p[1])
+				centerVector /= 2
+			elif place.p.size() % 2 == 1: #odd
+				centerVector = Vector2i(place.p[i]) 
+			else: #Even
+				centerVector = Vector2i(place.p[i])
+				centerVector += Vector2i(place.p[i + 1])
+				centerVector /= 2
 		else:
+			#shapes and closed geometry.
+			print("Shape")
 			var min = Vector2i(6400,10000)
 			var max = Vector2i(0,0)
 			for point in place.p:
@@ -70,7 +89,7 @@ func ReadPlaces(plusCode, category, terrainID, requirements, options = [], ignor
 					min.y = point.y
 				if point.x > max.x:
 					max.x = point.x
-				if point.y > min.y:
+				if point.y > max.y:
 					max.y = point.y
 			centerVector = (min + max) / 2
 			
@@ -84,6 +103,10 @@ func ReadPlaces(plusCode, category, terrainID, requirements, options = [], ignor
 			xCode8 = 19
 		if yCode8 == 20:
 			yCode8 = 19
+		if xCode10 == 20:
+			xCode10 = 19
+		if yCode10 == 20:
+			yCode10 = 19
 		
 		var centerCode = plusCode + PlusCodes.CODE_ALPHABET_[yCode8]+ PlusCodes.CODE_ALPHABET_[xCode8] + "+" + PlusCodes.CODE_ALPHABET_[yCode10]+ PlusCodes.CODE_ALPHABET_[xCode10]
 		reportedData.area = centerCode #was center, but that doesn't line up with minimized data.
