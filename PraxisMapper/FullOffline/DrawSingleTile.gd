@@ -41,6 +41,7 @@ func _draw():  #DrawCell8(plusCode):
 	#Add 1 Cell10s worth of buffer to this check, so point on the image borders show up correctly.1
 	var minPoint = Vector2i(testPointX - 16, testPointY - 25)
 	var maxPoint =  Vector2i(testPointX + 319 + 16, testPointY + 499 + 25)
+	var thisArea = Rect2(minPoint, maxPoint)
 
 	var bgCoords = PackedVector2Array()
 	bgCoords.append(Vector2(0,0))
@@ -64,13 +65,15 @@ func _draw():  #DrawCell8(plusCode):
 	for entry in theseentries:
 		#determine if this item needs to be drawn.
 		#AABB math
-		var areawidth = entry.envelope.max - entry.envelope.min
-		var check1 = minPoint.x < entry.envelope.max.x
-		var check2 = maxPoint.x > entry.envelope.min.x
-		var check3 = minPoint.y < entry.envelope.max.y
-		var check4 = maxPoint.y > entry.envelope.min.y
+		#var areawidth = entry.envelope.max - entry.envelope.min
+		#var check1 = minPoint.x < entry.envelope.max.x
+		#var check2 = maxPoint.x > entry.envelope.min.x
+		#var check3 = minPoint.y < entry.envelope.max.y
+		#var check4 = maxPoint.y > entry.envelope.min.y
 		
-		if (check1 and check2 and check3 and check4) == false:
+		#if (check1 and check2 and check3 and check4) == false:
+		#new code, use built-in stuff
+		if !entry.envelope.intersects(thisArea):
 			continue
 
 		var thisStyle = style[str(entry.tid)]

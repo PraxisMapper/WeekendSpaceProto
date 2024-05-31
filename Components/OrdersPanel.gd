@@ -135,12 +135,69 @@ func GetOrder():
 		if (parts.size() == 1):
 			parts.append("")
 		order.newPlaceVisited = false
-		var terrainType = int(parts[1])
+		var terrainType = int(parts[1]) #parts[1] can be a number or a string.
 		
 		var place = {}
 		if FileAccess.file_exists("user://Data/Full/" + PraxisCore.currentPlusCode.substr(0,4) + ".zip"):
-			#TODO: make sure this works the same as the original. parts[1] might be different?
-			place = $FullAreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), "mapTiles", terrainType, parts[1])
+			#The type Ids vary between style sets. In a not-prototype game, there should be
+			#some elegant way to handle this. Here, I'm gonna roll dice and use ifs.
+			var fullTerrainType = 0
+			var randomTerrainTypes = [20, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 500, 1000, 1200, 1300, 1400, 1500]
+			if terrainType == 0:
+				fullTerrainType = randomTerrainTypes.pick_random()
+			elif terrainType == 1:
+				fullTerrainType = 1000
+			elif terrainType == 2:
+				fullTerrainType = 20
+			elif terrainType == 3:
+				fullTerrainType = 1200
+			elif terrainType == 4:
+				fullTerrainType = 1300
+			elif terrainType == 5:
+				fullTerrainType = 500
+			elif terrainType == 6:
+				fullTerrainType = 40
+			elif terrainType == 7:
+				fullTerrainType = 50
+			elif terrainType == 8:
+				fullTerrainType = 60
+			elif terrainType == 9:
+				fullTerrainType = 70
+			elif terrainType == 10:
+				fullTerrainType = 80
+			elif terrainType == 11:
+				fullTerrainType = 90
+			elif terrainType == 12:
+				fullTerrainType = 100
+			elif terrainType == 13:
+				fullTerrainType = 110
+			elif terrainType == 14:
+				fullTerrainType = 120
+			elif terrainType == 15:
+				fullTerrainType = 130
+			elif terrainType == 16:
+				fullTerrainType = 140
+			elif terrainType == 17:
+				fullTerrainType = 150
+			elif terrainType == 18:
+				fullTerrainType = 160
+			elif terrainType == 19:
+				fullTerrainType = 170
+			elif terrainType == 20:
+				fullTerrainType = 180
+			elif terrainType == 21:
+				fullTerrainType = 190
+			elif terrainType == 22:
+				fullTerrainType = 200
+			elif terrainType == 23:
+				fullTerrainType = 210
+			elif terrainType == 24:
+				fullTerrainType = 220
+			elif terrainType == 25:
+				fullTerrainType = 1500
+			#PickPlace(area, category, terrainID = 0, requirement = ""):
+			#TODO: test this better
+			place = $FullAreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), "mapTiles", fullTerrainType, parts[1])
 		else:
 			place = $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainType, parts[1])
 		

@@ -58,12 +58,10 @@ func _draw():
 		var yCoord = PlusCodes.GetLetterIndex(code[8])
 		var xCoord = PlusCodes.GetLetterIndex(code[9])
 		
-		#Test code
-		#code += "2"
-		
 		if code.length() == 11:
-			yCoord -= (0.8 -(0.20 * (int(PlusCodes.GetLetterIndex(code[10]) / 4))))
-			xCoord += (0.25 * (PlusCodes.GetLetterIndex(code[10]) % 4))
+			#NOTE: centering this instead of using lower-left corner at this precision level.
+			yCoord -= (0.8 -(0.20 * (int(PlusCodes.GetLetterIndex(code[10]) / 4)))) + 0.1
+			xCoord += (0.25 * (PlusCodes.GetLetterIndex(code[10]) % 4)) - 0.125
 			draw_rect(Rect2(xCoord, 19 - yCoord, 0.25, 0.2), colorIndicator)
 		else:
 			draw_rect(Rect2(xCoord, 19 - yCoord, 1, 1), colorIndicator)

@@ -10,7 +10,7 @@ signal file_downloaded()
 #OK, immediately upon trying to do this, I realize I'm gonna hit issues with files overlapping
 #so I can't do both of these nicely. I'll need to pick a folder or something.
 func getFile(plusCode4):
-	serverPath = GameGlobals.gameData.serverUrl #"https://global.praxismapper.org/Content/OfflineData/"
+	serverPath = GameGlobals.gameOptions.serverUrl #"https://global.praxismapper.org/Content/OfflineData/"
 	var cell2 = plusCode4.substr(0,2)
 	if FileAccess.file_exists("user://Data/Full/" + plusCode4 + ".zip"):
 		var reader = ZIPReader.new()
