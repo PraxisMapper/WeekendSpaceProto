@@ -9,7 +9,6 @@ static func GetDataFromZip(plusCode):
 	var code2 = plusCode.substr(0, 2)
 	var code4 = plusCode.substr(2, 2)        
 	
-	print("Getting data for " + plusCode)
 	if !FileAccess.file_exists("user://Data/Min/" + code2 + code4 + ".zip"):
 		var zipReaderA = ZIPReader.new()
 		var err = zipReaderA.open("res://OfflineData/Min/" + code2 + ".zip")

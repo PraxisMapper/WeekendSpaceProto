@@ -121,7 +121,6 @@ func CreateTile(oneTile = null):
 		#print("drawing terrain")
 		#await $svc4/SubViewport/terrainMap.DrawOfflineTerrainTile(mapData.entries["mapTiles"], scaleVal)
 	
-	print("starting draw")
 	var xList = PlusCodes.CODE_ALPHABET_
 	var yList = PlusCodes.CODE_ALPHABET_
 	
@@ -161,5 +160,4 @@ func CreateTile(oneTile = null):
 			#$Banner/lblStatus.text = "Saved Tiles for " + plusCode6 + yChar + xChar
 	tile_created.emit(img1) #Exclusive logic to this prototype.
 	
-	print("Texture created")
 	return tex1

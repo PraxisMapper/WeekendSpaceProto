@@ -8,7 +8,7 @@ var styleData
 func PickPlace(area, category, terrainID = 0, requirement = ""):
 	var possiblePlaces = await ScanForPlaces(area, category, terrainID, requirement)
 	if possiblePlaces.size() == 0:
-		print("No allowable places here!")
+		print("No allowable places here for type " + str(terrainID) + "!")
 		return null
 
 	var chosenPlace = possiblePlaces[randi() % possiblePlaces.size()]
@@ -57,15 +57,10 @@ func ReadPlaces(plusCode, category, terrainID, requirements, options = [], ignor
 		reportedData.type = styleData[str(place.tid)].name
 		
 		#Estimate center. For horseshoe-shaped places, this will often not actually be in-bounds.
-		#TODO: this appears to still be off somewhat. Need to work out why.
 		var centerVector = Vector2i(0,0)
 		if place.p.size() == 1:
-			print("Point")
 			centerVector = Vector2i(place.p[0])
-		#TODO: for lines, maybe this should be the center point or avg of 2 center points?
 		elif place.p[0] != place.p[place.p.size() - 1]:
-			print(place.p[0])
-			print(place.p[place.p.size() - 1])
 			var i = place.p.size() / 2
 			if place.p.size() == 2: #special case
 				centerVector = Vector2i(place.p[0])
@@ -79,7 +74,6 @@ func ReadPlaces(plusCode, category, terrainID, requirements, options = [], ignor
 				centerVector /= 2
 		else:
 			#shapes and closed geometry.
-			print("Shape")
 			var min = Vector2i(6400,10000)
 			var max = Vector2i(0,0)
 			for point in place.p:
@@ -94,9 +88,9 @@ func ReadPlaces(plusCode, category, terrainID, requirements, options = [], ignor
 			centerVector = (min + max) / 2
 			
 		var xCode8 = centerVector.x / 320
-		var xCode10 = centerVector.x % 20
+		var xCode10 = centerVector.x / 16 % 20
 		var yCode8 = centerVector.y / 500
-		var yCode10 = centerVector.y  % 20
+		var yCode10 = centerVector.y / 25 % 20
 		
 		#quick hack
 		if xCode8 == 20:
@@ -109,14 +103,12 @@ func ReadPlaces(plusCode, category, terrainID, requirements, options = [], ignor
 			yCode10 = 19
 		
 		var centerCode = plusCode + PlusCodes.CODE_ALPHABET_[yCode8]+ PlusCodes.CODE_ALPHABET_[xCode8] + "+" + PlusCodes.CODE_ALPHABET_[yCode10]+ PlusCodes.CODE_ALPHABET_[xCode10]
-		reportedData.area = centerCode #was center, but that doesn't line up with minimized data.
+		reportedData.area = centerCode
 		possiblePlaces.push_back(reportedData)
 	
 	return possiblePlaces
 
 func ScanForPlaces(plusCode, category, terrainID = 0, requirements = "", fixedDistance = 0):
-	pass
-	
 	#The function that handles where to call ReadPlaces for.
 	#Default is to scan a distance of 0 and 1. Scans all sectors at the same distance 
 	#before returning a combined list of places. 
@@ -162,7 +154,7 @@ func ScanForPlaces(plusCode, category, terrainID = 0, requirements = "", fixedDi
 		return possiblePlaces
 
 	#Nothing showed up? Still here? That's a problem.
-	return null
+	return []
 
 func IsInside(outerPlace, innerPlace):
 	#This should not be used here. Making 1 point and calling

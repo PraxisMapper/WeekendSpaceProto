@@ -70,7 +70,7 @@ var gameData = {
 	baseSalary = 1, #can this be increased separately?
 	awayMissions = [], #require the player to be in the place to end them
 	remoteMissions = [], #these ones dont require you to be in the place to finish	
-	sideQuestsInProgress = {}, #TODO: potential nonlinear mission structure.
+	sideQuestsInProgress = {}, #potential nonlinear mission structure.
 	sideQuestsEligible = [], #just names, but quit checking on these ones.
 	sideQuestsComplete = [], #just names
 	
@@ -105,7 +105,6 @@ func PluscodeChanged(currentPlusCode, previousPlusCode):
 		await PraxisCore.MakeMinimizedOfflineTiles(filename) #Works, because this adds node to the current tree.
 	
 	cellTracker.Add(currentPlusCode)
-	UpdateSideQuests(currentPlusCode)
 	pluscode_changed.emit(currentPlusCode, previousPlusCode)
 
 #Unused for the prototype
@@ -219,33 +218,6 @@ func LoadGame():
 			gameData.saveDataVersion = 2
 			SaveGame()
 
-#Skipping side quest logic for now, in favor of shipping this working instead.
-#Side Quest logic:
-#Once you hit some criteria, a side quest goes on the Eligible list
-#and stays there until you start it. Once started, it goes into the 
-#InProgress dictionary by its name, with a schema of roughly
-#{step = 1, requirement="whatever", }
-func UpdateSideQuests(current):
-	#first check if any side quests are eligible to start,
-	#skipping ones we're already eligible for or started.
-	for quest in sideQuests:
-		if gameData.sideQuestsComplete.find(quest) > -1 or gameData.sideQuestsEligible.find(quest) > -1:
-			continue
-		
-		var thisQuest = sideQuests[quest]
-		#check the start requirements
-		#TODO: multiple requirements? or chain quests?
-		var req = thisQuest.start.requirement
-		if req.begins_with("MainQuest"):
-			#this doesnt show up until you've gotten so far in the main quest.
-			var step = int(req.replace("MainQuest:", ""))
-			if gameData.plotProgress >= step:
-				gameData.sideQuestsEligible.push_back(quest)
-			
-	#for each active side quest, check what their progress requirement is
-	#and if its complete, fire up the next step of that side quest (dialogic)
-	#Also, for each side quest not started or in-progress, see if we can start it.
-	
 func ChangeToFixingScene():
 	#This is called by Dialogic to move us to the scene for fixing the scanner.
 	get_tree().change_scene_to_file("res://Scenes/FixScannerCutscene.tscn")

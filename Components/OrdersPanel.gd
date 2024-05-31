@@ -1,9 +1,6 @@
 extends Node2D
-#TODO?: make this read the full detailed data if its available, instead of
-#only using minimized offline data. This might be enough to throw to a future project.
-#KNOWN: this doesn't filter down to the gameplay viable places yet. I'll have to
-#work out how to cherry-pick those and convert from suggestedMini values to 
-#mapTiles values.
+
+var thread = Thread.new()
 
 var orderArray = [
 	"Patrol_125", #approximately a mile. #Story1
@@ -26,8 +23,6 @@ func UpdateScreen(_cur, _old):
 	var isPlaceMission = GameGlobals.gameData.currentOrder.type.begins_with("NewPlace") or GameGlobals.gameData.currentOrder.type.begins_with("FreePlay")
 	var showTargetDest = GameGlobals.gameData.currentOrder.type.begins_with("NewPlace") or GameGlobals.gameData.currentOrder.type.begins_with("WaitPlace")  or GameGlobals.gameData.currentOrder.type.begins_with("FreePlay")
 	$lblOrders.text = GameGlobals.gameData.currentOrder.text
-	print($lblOrders.text)
-	print(GameGlobals.gameData.currentOrder.place.name)
 	if GameGlobals.gameData.currentOrder.place.has("area"):
 		$lblTargetSector.text = GameGlobals.gameData.currentOrder.place.area
 		$lblDistance.text = GetDistAndDirection(PraxisCore.currentPlusCode, GameGlobals.gameData.currentOrder.place.area)
@@ -41,20 +36,83 @@ func UpdateScreen(_cur, _old):
 	$btnPickNew.visible = isPlaceMission and !GameGlobals.gameData.currentOrder.complete
 	$btnNudge.visible = isPlaceMission and !GameGlobals.gameData.currentOrder.complete
 
-	
 func ChangePlace():
+	if thread.is_alive():
+		return
+	thread.wait_to_finish()
+	
+	$lblOrders.text = "Scanning...."
+	await RenderingServer.frame_post_draw
 	var orderParts = GameGlobals.gameData.currentOrder.type.split("_")
 	var condition = ""
 	if orderParts.size() > 1:
 		condition = orderParts[1]
 	if (orderParts[0] == "FreePlay" and randi() % 4 == 0):
 		condition = "far"
-	var terrainId = int(condition)
+	var terrainType = int(condition)
 	var newPlace = {}
 	if FileAccess.file_exists("user://Data/Full/" + PraxisCore.currentPlusCode.substr(0,4) + ".zip"):
-		newPlace = $FullAreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), "mapTiles", terrainId, condition)
+		#The type Ids vary between style sets. In a not-prototype game, there should be
+		#some elegant way to handle this. Here, I'm gonna roll dice and use ifs.
+		var fullTerrainType = 0
+		var randomTerrainTypes = [20, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 500, 1000, 1200, 1300, 1400, 1500]
+		if terrainType == 1:
+			fullTerrainType = 1000
+		elif terrainType == 2:
+			fullTerrainType = 20
+		elif terrainType == 3:
+			fullTerrainType = 1200
+		elif terrainType == 4:
+			fullTerrainType = 1300
+		elif terrainType == 5:
+			fullTerrainType = 500
+		elif terrainType == 6:
+			fullTerrainType = 40
+		elif terrainType == 7:
+			fullTerrainType = 50
+		elif terrainType == 8:
+			fullTerrainType = 60
+		elif terrainType == 9:
+			fullTerrainType = 70
+		elif terrainType == 10:
+			fullTerrainType = 80
+		elif terrainType == 11:
+			fullTerrainType = 90
+		elif terrainType == 12:
+			fullTerrainType = 100
+		elif terrainType == 13:
+			fullTerrainType = 110
+		elif terrainType == 14:
+			fullTerrainType = 120
+		elif terrainType == 15:
+			fullTerrainType = 130
+		elif terrainType == 16:
+			fullTerrainType = 140
+		elif terrainType == 17:
+			fullTerrainType = 150
+		elif terrainType == 18:
+			fullTerrainType = 160
+		elif terrainType == 19:
+			fullTerrainType = 170
+		elif terrainType == 20:
+			fullTerrainType = 180
+		elif terrainType == 21:
+			fullTerrainType = 190
+		elif terrainType == 22:
+			fullTerrainType = 200
+		elif terrainType == 23:
+			fullTerrainType = 210
+		elif terrainType == 24:
+			fullTerrainType = 220
+		elif terrainType == 25:
+			fullTerrainType = 1500
+		
+		terrainId = fullTerrainType
+		reqs = condition
+		thread.start(scanOnThread)
+		return
 	else:
-		newPlace = $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainId, condition)
+		newPlace = await $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainType, condition)
 	if newPlace == null:
 		return
 	
@@ -69,10 +127,50 @@ func ChangePlace():
 	GameGlobals.SaveGame()
 	
 	UpdateScreen(null, null)
+	
+
+
+signal scan_done()
+
+var terrainId = 0
+var reqs = ""
+var placePicked = null
+func scanOnThread():
+	var scanner = FullAreaScanner.new()
+	placePicked = null
+	var randomTerrainTypes = [20, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 500, 1000, 1200, 1300, 1400, 1500]
+	if terrainId != 0:
+		randomTerrainTypes = [terrainId]
+	while placePicked == null and randomTerrainTypes.size() > 0:
+		var scanThisType = randomTerrainTypes.pop_at(randi_range(0, randomTerrainTypes.size() - 1))
+		placePicked = await scanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), "mapTiles", scanThisType, reqs)
+	
+	call_deferred("emit_signal", "scan_done")
+	
+func fullScanDone():
+	var orderParts = GameGlobals.gameData.currentOrder.type.split("_")
+	var oldPlace = GameGlobals.gameData.currentOrder.place.name
+	var newPlace = placePicked
+	if placePicked == null:
+		$lblOrders.text = "No valid place found. Move somewhere else and try again"
+		return
+	
+	GameGlobals.gameData.currentOrder.place = newPlace
+	if orderParts[0] == "FreePlay":
+		GameGlobals.gameData.currentOrder.text = "Explore the world at your whim. Consider a trip to " + newPlace.name
+	else:
+		GameGlobals.gameData.currentOrder.text = "Make an expedition to " + newPlace.name
+	if newPlace.has("parentName"):
+		GameGlobals.gameData.currentOrder.text += " in or near " + newPlace.parentName
+	GameGlobals.SaveGame()
+	
+	UpdateScreen(null, null)
+	
 
 func _ready():
 	UpdateScreen(null, null)
 	GameGlobals.pluscode_changed.connect(UpdateScreen)
+	scan_done.connect(fullScanDone)
 	if (GameGlobals.debug):
 		$btnDebugAdvance.visible = true
 
@@ -195,9 +293,10 @@ func GetOrder():
 				fullTerrainType = 220
 			elif terrainType == 25:
 				fullTerrainType = 1500
-			#PickPlace(area, category, terrainID = 0, requirement = ""):
-			#TODO: test this better
 			place = $FullAreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), "mapTiles", fullTerrainType, parts[1])
+			while place == null and terrainType == 0 and randomTerrainTypes.size() > 0:
+				fullTerrainType = randomTerrainTypes.pop_at(randi_range(0, randomTerrainTypes.size()))
+				place = $FullAreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), "mapTiles", fullTerrainType, parts[1])
 		else:
 			place = $AreaScanner.PickPlace(PraxisCore.currentPlusCode.substr(0,6), terrainType, parts[1])
 		
@@ -245,8 +344,6 @@ func IsOrderComplete():
 	elif GameGlobals.gameData.currentOrder.type.begins_with("Wait"):
 		return GameGlobals.gameData.currentOrder.endTime <= Time.get_unix_time_from_system()
 	elif GameGlobals.gameData.currentOrder.type.begins_with("NewPlace"):
-		if GameGlobals.currentPlaceName != null:
-			print("|" + GameGlobals.currentPlaceName + "| vs |" + GameGlobals.gameData.currentOrder.place.name + "|")
 		return GameGlobals.currentPlaceName == GameGlobals.gameData.currentOrder.place.name
 	elif GameGlobals.gameData.currentOrder.type.begins_with("Science"):
 		#this needs to wait until Science code is set up.

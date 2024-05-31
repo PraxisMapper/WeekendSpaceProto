@@ -57,7 +57,6 @@ func GetAndProcessData(plusCode, scale = 1):
 	await RenderingServer.frame_post_draw
 	#Game is probably going to freeze for a couple seconds here while Godot draws stuff to the node
 
-	print("being tile making")
 	await CreateAllTiles(oneTile) #Godot runs slow while this does work and waits for frames.
 	
 	if makeThumbnail:
@@ -77,7 +76,6 @@ func GetAndProcessData(plusCode, scale = 1):
 	
 func CreateAllTiles(oneTile = null):
 	#Fullmap at 0, name map at 40k, bounds map at 80k, terrain at 120k
-	print("CreateAllTilesCalled")
 	$svc/SubViewport/fullMap.position.y = 0
 	$svc2/SubViewport/nameMap.position.y = 40000 * scaleVal
 	$svc3/SubViewport/boundsMap.position.y = 80000 * scaleVal
@@ -93,7 +91,6 @@ func CreateAllTiles(oneTile = null):
 	var camera4 = $svc4/SubViewport/subcam
 	var scale = scaleVal
 	
-	print("cameras set")
 	camera1.position = Vector2(0,0)
 	camera2.position = Vector2(0,40000 * scaleVal)
 	camera3.position = Vector2(0,80000 * scaleVal)
@@ -102,9 +99,7 @@ func CreateAllTiles(oneTile = null):
 	viewport2.size = Vector2i(320, 500) #non-visible images don't need scaled up.
 	viewport3.size = Vector2i(320, 500)
 	viewport4.size = Vector2i(320, 500)
-	print("viewports set")
 	await RenderingServer.frame_post_draw #set this before loading entities, skips a wasted draw call.
-	print("frame waited")
 	
 	$Banner/lblStatus.text = "Drawing " + plusCode6 + "..."
 	if makeMapTile == true:
@@ -120,7 +115,6 @@ func CreateAllTiles(oneTile = null):
 		print("drawing terrain")
 		await $svc4/SubViewport/terrainMap.DrawOfflineTerrainTile(mapData.entries["mapTiles"], scaleVal)
 	
-	print("starting draw loops")
 	var xList = PlusCodes.CODE_ALPHABET_
 	var yList = PlusCodes.CODE_ALPHABET_
 	

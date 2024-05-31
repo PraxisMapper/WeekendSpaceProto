@@ -69,7 +69,7 @@ offset_bottom = 86.0
 theme = ExtResource("2_lhag6")
 text = "Load Detailed Scan Data"
 
-[node name="btnDownload" type="Button" parent="."]
+[node name="btnDownloadunused" type="Button" parent="."]
 visible = false
 offset_left = 770.0
 offset_top = 15.0
@@ -90,4 +90,4 @@ text = "Places:"
 [node name="GetFile" parent="." instance=ExtResource("6_x4kgs")]
 
 [connection signal="pressed" from="btnLoadData" to="." method="LoadData2"]
-[connection signal="pressed" from="btnDownload" to="." method="LoadScanData"]
+[connection signal="pressed" from="btnDownloadunused" to="." method="LoadScanData"]

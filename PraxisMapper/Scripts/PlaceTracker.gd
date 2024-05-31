@@ -130,10 +130,6 @@ func GetDataOnPoint(plusCode10):
 	
 func CheckForPlaceFull(plusCode10):
 	#this is for using the full drawable data to detect which place you're at
-	#since this only shows 1 name, it's fastest to start at the end of the array
-	#and work backwards.
-	
-	#NOTE: place detection is inaccurate. TODO: test and determine correct math.
 	
 	plusCode10 = plusCode10.replace("+", "")
 	var data = await GetDataOnPointFull(plusCode10)

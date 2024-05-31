@@ -1,7 +1,6 @@
 extends Node2D
 
-#Copied from default ScanExplorer. 
-#TODO: rework to use full drawable data instead of minmized data.
+#Copied from default ScanExplorer and adjusted for full detailed data.
 func _ready():
 	PraxisCore.plusCode_changed.connect(UpdateDisplay)
 	UpdateDisplay(PraxisCore.currentPlusCode, "")
@@ -45,6 +44,7 @@ func GetAreaInfo():
 		fixedDist = $optDist.get_item_id($optDist.selected)
 	
 	#TODO: this is much slower, so this should probably throw up a spinner
+	#Or use a thread like the OrdersPanel does.
 	var places = await $FullAreaScanner.ScanForPlaces(PraxisCore.currentPlusCode.substr(0,6), "mapTiles", terrainID, requirements, fixedDist)
 	if $chkVisited.button_pressed:
 		GameGlobals.placeTracker.Load()

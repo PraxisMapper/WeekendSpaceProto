@@ -27,8 +27,6 @@ func Draw(current, _new):
 		$DrawnMap.visible = false
 		$TextureRect.texture = ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + area + "-thumb.png"))
 		$lblMapKey.visible = false
-		#TODO: draw intersecting lines here over this image. Texture is 512x800
-		#but area is 320x500, so multiply results by 1.6
 		var code10 = current.replace("+", "")
 		#Y is correct at the bottom, not at the top
 		#These coords are 400x400. Im scaling them wrong. 

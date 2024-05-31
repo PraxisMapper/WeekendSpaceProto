@@ -19,11 +19,13 @@ static func GetDataFromZip(plusCode): #full, drawable offline data.
 	#if (err != OK):
 	#TODO: should add a method that checks if the file exists AND OPENS,
 	#because if its incomplete zipReader returns null.
-	if FileAccess.file_exists("user://Data/Full/" + code2 + code4 + ".zip"):
-		var err = await zipReader.open("user://Data/Full/" + code2 + code4 + ".zip")
-		if err != OK:
-			print("No FullOffline data found (or zip corrupt/incomplete) for " + plusCode)
-			return 
+	if !FileAccess.file_exists("user://Data/Full/" + code2 + code4 + ".zip"):
+		return
+		
+	var err = await zipReader.open("user://Data/Full/" + code2 + code4 + ".zip")
+	if err != OK:
+		print("No FullOffline data found (or zip corrupt/incomplete) for " + plusCode)
+		return 
 		
 	var rawdata := await zipReader.read_file(plusCode + ".json")
 	var realData = await rawdata.get_string_from_utf8()
@@ -58,8 +60,6 @@ static func GetDataFromZip(plusCode): #full, drawable offline data.
 					minVector.y = workVector.y
 				
 			entry.p = polyCoords
-			#TODO: moving envelope to Rect2 for intersects cehcks
-			#entry.envelope = {min = minVector, max = maxVector}
 			entry.envelope = Rect2(minVector, (maxVector - minVector))
 	
 	allData[plusCode] = jsonData
@@ -75,11 +75,10 @@ static func GetPlacesPresent(plusCode):
 		for entry in data.entries[category]:
 			if entry.has("nid"):
 				if IsPointInPlace(point, entry, size, data.nameTable[str(entry.nid)]):
-					#print("Found " + data.nameTable[str(entry.nid)] + " at " + plusCode)
 					results.push_back({ 
 						name  = data.nameTable[str(entry.nid)],
 						category = category,
-						typeId = entry.tid #would prefer name for display. Might need to load styles globally.
+						typeId = entry.tid
 					})
 	return results
 

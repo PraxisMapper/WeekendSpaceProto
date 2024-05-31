@@ -17,7 +17,6 @@ func GetAndProcessData(pluscode6):
 	mapData = await MinimizedOffline.GetDataFromZip(pluscode6)
 	if (mapData == null):
 		print("MapData is null, check for earlier errors.")
-	print("begin tile making for " + pluscode6)
 	await CreateAllTiles()
 	
 func GetStyle():
@@ -65,6 +64,5 @@ func CreateAllTiles():
 	img2.save_png("user://NameTiles/" + plusCode + ".png") # Save to disk
 	var img3 = viewport3.get_texture().get_image() # Get rendered image
 	img3.save_png("user://TerrainTiles/" + plusCode + ".png") # Save to disk
-	print("Saved minimized tile for " + plusCode)
 	
 	tiles_saved.emit()

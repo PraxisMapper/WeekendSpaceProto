@@ -1,6 +1,5 @@
 extends Node2D
 
-signal pluscode_changed(current, old)
 signal place_changed(newPlaceName)
 
 func _process(delta):
@@ -26,7 +25,6 @@ func _ready():
 	if PraxisCore.currentPlusCode != "":
 		on_pluscode_changed(PraxisCore.currentPlusCode, PraxisCore.lastPlusCode)
 
-#TODO: THis should not fire off modified results, all of those should hit PRaxisCore
 func on_pluscode_changed(currentPlusCode, previousPlusCode):
 	$scroll/vbox/MainHeader/lblCoords.text = currentPlusCode
 	var fileExists = FileAccess.file_exists("user://MapTiles/" + currentPlusCode.substr(0,6) + ".png")
@@ -40,8 +38,6 @@ func on_pluscode_changed(currentPlusCode, previousPlusCode):
 		GameGlobals.currentPlaceName = placeData[0]
 		$scroll/vbox/MainHeader/lblPlace.text = placeData[0]
 		place_changed.emit(placeData[0])
-
-	pluscode_changed.emit(currentPlusCode, previousPlusCode)
 
 func on_place_changed(newPlace):
 	$scroll/vbox/MainHeader/lblPlace.text = newPlace
