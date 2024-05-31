@@ -3,7 +3,7 @@ extends Node
 #For this game, I'll be checking data in the res://OfflineData folder.
 #This is the super-minimized version, where it draws points by radius. 
 
-var debug = true #set to false when shipping.
+var debug = false #set to false when shipping.
 var placeTracker
 var cellTracker
 var currentPlaceName

@@ -25,8 +25,8 @@ var mapData
 func GetAndProcessData(plusCode, scale = 1):
 	#save some time
 	if FileAccess.file_exists("user://MapTiles/" + plusCode + ".png") and !alwaysDrawNewTile:
-		var tex = await ImageTexture.create_from_image(Image.load_from_file("user://MapTiles/" + plusCode + ".png"))
-		tile_created.emit(tex)
+		var img = await Image.load_from_file("user://MapTiles/" + plusCode + ".png")
+		tile_created.emit(img)
 		return
 	
 	var oneTile = null

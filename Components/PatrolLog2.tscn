@@ -16,3 +16,4 @@ script = ExtResource("2_kjlni")
 transparent = true
 
 [node name="TileDrawer" parent="." instance=ExtResource("3_yyphd")]
+alwaysDrawNewTile = false
